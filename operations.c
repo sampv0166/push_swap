@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 04:19:07 by apila-va          #+#    #+#             */
-/*   Updated: 2021/12/29 05:57:17 by apila-va         ###   ########.fr       */
+/*   Updated: 2021/12/29 14:04:43 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,74 @@ void swap(t_stack *stack)
 		return ;
 	else
 	{
-		//printf(" \n number : %d", stack->f_element->next->num);
 		first = stack->f_element;
 		second = first->next;
-		tmp_num = first->num;
-		printf(" \n number : %d \n", second->num);	
+		tmp_num = first->num;	
 		first->num = second->num;
 		second->num = tmp_num;		
 	}		
+}
+
+void push(t_stack *stack1, t_stack *stack2)
+{
+	t_list *stack_a;
+	t_list *stack_b;
+	t_list *temp_elem;
+	if (stack1->count <= 0) 
+		return ;
+	if(!stack2->f_element)
+	{
+		stack2->f_element = stack1->f_element;
+		stack1->f_element = stack1->f_element->next;
+		stack2->f_element->next = NULL;	
+		stack2->count = stack2->count + 1;
+		 if(stack1->count != 0)
+		 	stack1->count = stack1->count - 1;	
+		return ;
+	}
+	temp_elem = ft_lstnew(stack1->f_element->num);
+	ft_lstadd_front(&stack2->f_element, temp_elem);
+	temp_elem = stack1->f_element->next;
+	free(stack1->f_element);
+	stack1->f_element = temp_elem;
+	if(stack1->count != 0)
+	 	stack1->count = stack1->count - 1;	
+	stack2->count = stack2->count + 1;
+}
+
+void rotate(t_stack *stack)
+{
+	t_list *temp_elem;
+
+	if(stack->count <= 1)
+		return ;	
+	temp_elem = stack->f_element;
+	stack->f_element = stack->f_element->next;
+	temp_elem->next = NULL;
+	ft_lstadd_back(stack->f_element, temp_elem);
+}
+
+void reverse_rotate(t_stack *stack)
+{
+	t_list *temp_elem;
+	t_list *temp;
+
+	temp = stack->f_element;
+	if(stack->count <= 1)
+		return ;
+	if(stack->count > 2)
+	{
+		while(stack->f_element->next->next != NULL)
+		{
+			temp_elem = stack->f_element->next->next;
+			stack->f_element = stack->f_element->next;
+		}
+	}
+	else
+	{
+		temp_elem = stack->f_element->next;
+	}		
+	stack->f_element->next = NULL;
+	stack->f_element = temp;
+	ft_lstadd_front(&stack->f_element, temp_elem);		
 }

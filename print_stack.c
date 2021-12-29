@@ -13,4 +13,6 @@ void print_stack(t_list *list)
         printf("%d th element  = %d\n", i, temp_list->num);
 	    temp_list =  temp_list->next;	
 	}
+	printf("\n\n");
 }
+

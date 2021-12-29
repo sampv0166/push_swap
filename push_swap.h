@@ -27,11 +27,13 @@ typedef struct s_stack
 t_list	*ft_lstnew(int num);
 void	ft_lstadd_back(t_list *lst, t_list *new);
 void	swap(t_stack *stack);
+void 	push(t_stack *stack1, t_stack *stack2);
 
 // useful functions
 size_t  ft_strlen(const char *str);
 int     ft_atoi(const char *str);
 void	print_stack(t_list *list);
-
-
+void	ft_lstadd_front(t_list **lst, t_list *new);
+void	rotate(t_stack *stack);	
+void reverse_rotate(t_stack *stack);
 #endif
