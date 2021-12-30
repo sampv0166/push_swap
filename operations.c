@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 04:19:07 by apila-va          #+#    #+#             */
-/*   Updated: 2021/12/29 14:04:43 by apila-va         ###   ########.fr       */
+/*   Updated: 2021/12/30 14:51:27 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void rotate(t_stack *stack)
 	stack->f_element = stack->f_element->next;
 	temp_elem->next = NULL;
 	ft_lstadd_back(stack->f_element, temp_elem);
+	
 }
 
 void reverse_rotate(t_stack *stack)
