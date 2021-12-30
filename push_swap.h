@@ -14,6 +14,11 @@ typedef struct s_list
 	struct s_list	*next;
 }		       t_list;
 
+typedef struct s_sorted
+{
+	int		*sorted;
+	int		middle;
+}				t_sorted;
 
 typedef struct s_stack
 {
@@ -35,5 +40,8 @@ int     ft_atoi(const char *str);
 void	print_stack(t_list *list);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 void	rotate(t_stack *stack);	
-void reverse_rotate(t_stack *stack);
+void	reverse_rotate(t_stack *stack);
+
+void	quickSort(int array[], int low, int high);
+
 #endif
