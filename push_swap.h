@@ -44,4 +44,7 @@ void	reverse_rotate(t_stack *stack);
 
 void	quickSort(int array[], int low, int high);
 
+// other fuctions
+int	ft_isdigit(int val);
+
 #endif
