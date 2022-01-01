@@ -18,17 +18,36 @@ int verify_numbers(int argc, char **argv)
 				ret = 0;
 				return (ret);
 			}	
-				
-			j++;	
+			j++;
 		}
+		if(ft_atoi(argv[i]) > 2,147,483,647 || ft_atoi(argv[i]) < -2147483648)
+			return(0);
 		i++;
 	}
 	return (ret);
 }
 
-int verify_int_limit(t_sorted *sort)
+int check_for_doubles(t_sorted *sort, int argc)
 {
-	
+	int ret;
+	int i;
+	int j;
+
+	ret = 1;
+	i  = 0;
+	j = 0;
+	while(i < argc - 1)
+	{
+		j = 0;
+		while(j < argc - 1)
+		{
+			if(sort->sorted[i] == sort->sorted[j])
+				ret = 0;
+			j++;
+		}
+		i++;
+	}
+	return(ret);
 }
 
 int verify_input(int argc, char **argv, t_sorted *sort)
@@ -36,8 +55,8 @@ int verify_input(int argc, char **argv, t_sorted *sort)
 	int ret;
 
 	ret = 1;
-	ret = verify_numbers(argc, argv);
-	ret = verify_int_limit(sort);
-
+	if (!verify_numbers(argc, argv) || !check_for_doubles(sort, argc))
+		ret = 0;
 	return (ret);
 }
+

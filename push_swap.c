@@ -61,6 +61,9 @@ int main (int argc, char **argv)
     verify_input(argc, argv, &sort);
     create_list(argc, argv, &stack_a); 
     stack_b.f_element = NULL;
+
+    verify_input(argc, argv, &sort);
+    
     printf("stack A \n");
     print_stack(stack_a.f_element);
     printf("stack B \n");
