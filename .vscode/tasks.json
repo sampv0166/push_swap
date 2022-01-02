@@ -7,7 +7,15 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "ft_atoi.c","ft_lstadd_back.c","ft_lstnew.c","operations.c","print_stack.c","ft_lstadd_front.c",
+                "ft_atoi.c",
+                "ft_lstadd_back.c",
+                "ft_lstnew.c",
+                "operations.c",
+                "print_stack.c",
+                "ft_lstadd_front.c",
+                "validation.c",
+                "quick_sort.c",
+                "ft_isdigit.c",
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
