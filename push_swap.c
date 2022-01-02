@@ -58,18 +58,27 @@ int main (int argc, char **argv)
     t_stack stack_b;
     t_sorted sort;
     sort_to_array(&sort, argc, argv);
-    verify_input(argc, argv, &sort);
+    // verify_input(argc, argv, &sort);
     create_list(argc, argv, &stack_a); 
     stack_b.f_element = NULL;
 
-    verify_input(argc, argv, &sort);
-    
+    if (verify_input(argc, argv, &sort))
+    {
+        printf("ok");
+    }
+    else
+    {
+        printf("not ok");
+    }
+
     printf("stack A \n");
     print_stack(stack_a.f_element);
     printf("stack B \n");
     print_stack(stack_b.f_element);
     printf("sorted array\n");
-    print_array(sort.sorted, argc); 
+    print_array(sort.sorted, argc);
+
+    
     // int num;
     // int i;
 
