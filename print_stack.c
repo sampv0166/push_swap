@@ -16,3 +16,16 @@ void print_stack(t_list *list)
 	printf("\n\n");
 }
 
+void print_array(int *ar, int argc)
+{
+    int i;
+
+    i = 0;
+    while(i < argc - 1)
+    {
+        printf("%d ", ar[i]);
+        i++;
+    }
+    printf("\n");
+}
+

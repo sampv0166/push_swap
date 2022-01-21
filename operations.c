@@ -12,7 +12,19 @@
 
 #include "push_swap.h"
 
-void swap(t_stack *stack)
+void reset_index(t_stack *stack)
+{
+	
+}
+
+void print_operation(char *op)
+{
+	char c = '\n';
+	write(1, op, ft_strlen(op));
+	write(1, &c, 1);
+}
+
+void swap(t_stack *stack, char *op)
 {
 	t_list *first;
 	t_list *second;
@@ -27,10 +39,12 @@ void swap(t_stack *stack)
 		tmp_num = first->num;	
 		first->num = second->num;
 		second->num = tmp_num;		
-	}		
+	}
+	stack->max++;
+	print_operation(op);	
 }
 
-void push(t_stack *stack1, t_stack *stack2)
+void push(t_stack *stack1, t_stack *stack2, char *op)
 {
 	t_list *stack_a;
 	t_list *stack_b;
@@ -45,6 +59,8 @@ void push(t_stack *stack1, t_stack *stack2)
 		stack2->count = stack2->count + 1;
 		 if(stack1->count != 0)
 		 	stack1->count = stack1->count - 1;	
+		print_operation(op);
+		stack1->max++; 
 		return ;
 	}
 	temp_elem = ft_lstnew(stack1->f_element->num);
@@ -55,9 +71,11 @@ void push(t_stack *stack1, t_stack *stack2)
 	if(stack1->count != 0)
 	 	stack1->count = stack1->count - 1;	
 	stack2->count = stack2->count + 1;
+	stack1->max++; 
+	print_operation(op);
 }
 
-void rotate(t_stack *stack)
+void rotate(t_stack *stack, char *op)
 {
 	t_list *temp_elem;
 
@@ -67,10 +85,11 @@ void rotate(t_stack *stack)
 	stack->f_element = stack->f_element->next;
 	temp_elem->next = NULL;
 	ft_lstadd_back(stack->f_element, temp_elem);
-	
+	print_operation(op);
+	stack->max++;
 }
 
-void reverse_rotate(t_stack *stack)
+void reverse_rotate(t_stack *stack, char *op)
 {
 	t_list *temp_elem;
 	t_list *temp;
@@ -92,5 +111,7 @@ void reverse_rotate(t_stack *stack)
 	}		
 	stack->f_element->next = NULL;
 	stack->f_element = temp;
-	ft_lstadd_front(&stack->f_element, temp_elem);		
+	ft_lstadd_front(&stack->f_element, temp_elem);
+	print_operation(op);
+	stack->max++;
 }

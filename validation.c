@@ -3,27 +3,16 @@
 int verify_numbers(int argc, char **argv)
 {
 	int i;
-	int j;
 	int ret;
 
 	i = 1;
 	ret = 1;
 	while(argv[i])
 	{
-		j = 0;
 		long k;
 		k = ft_atoi(argv[i]);
 		if(k > 2147483647 || k < -2147483648)
 			return(0);
-		while(argv[i][j])
-		{
-			if(!ft_isdigit(argv[i][j]))
-			{
-				ret = 0;
-				return (ret);
-			}
-			j++;
-		}
 		i++;
 	}
 	return (ret);
@@ -49,6 +38,7 @@ int check_for_doubles(t_sorted *sort, int argc)
 		}
 		i++;
 	}
+	sort->length = argc;
 	return(ret);
 }
 

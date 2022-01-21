@@ -9,6 +9,11 @@ int	ft_atoi(const char *str)
 	i = 0;
 	s = 1;
 	res = 0;
+	if(ft_strlen(str) == 1 && (*str == '-' || *str == '+'))
+	{
+		printf("exiting");
+		exit(0);
+	}
 	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || \
 			str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
 		i++;
@@ -22,6 +27,16 @@ int	ft_atoi(const char *str)
 	{
 		res = (res * 10) + (str[i] - '0');
 		i++;
+		if(res > 2147483647)
+		{
+			printf("exiting");
+			exit(0);
+		}
+	}
+	if(str[i] != '\0')
+	{
+		printf("exiting");
+		exit(0);
 	}
 	return (res * s);
 }
