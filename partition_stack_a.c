@@ -77,7 +77,7 @@ void rotate_back_stack_a(t_stack *stack_a, int ra_count)
 
     count = ra_count;
 
-    while(count && stack_a->partitions[0])
+    while(count && stack_a->partitions[])
     {
         reverse_rotate(stack_a, "ra");
         count--;

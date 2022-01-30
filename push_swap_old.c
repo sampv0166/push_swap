@@ -45,10 +45,11 @@ void initialize_stacks(t_stack *stack_a, t_stack *stack_b)
 {
     stack_b->f_element = NULL;
     stack_b->count = 0;
-    stack_b->max = 0;
+   
     stack_b->min = 0;
 
     stack_a->count = 0;
+     stack_b->max = 0;
     stack_a->max = 0;
     stack_a->min = 0;
     stack_a->f_element = 0;

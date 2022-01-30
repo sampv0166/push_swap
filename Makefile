@@ -1,4 +1,4 @@
-SRCS = push_swap.c ft_atoi.c list_functions.c partition_stack_a.c\
+SRCS = push_swap.c ft_atoi.c list_functions.c \
 		   operations.c validation.c quick_sort.c \
 		   ft_isdigit.c sort_2_numbers.c print_stack.c ft_strlen.c
 

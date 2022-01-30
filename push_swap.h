@@ -21,7 +21,6 @@ typedef struct s_list
 typedef struct s_sorted
 {
 	int		*sorted;
-	int		middle;
 	int 	length;
 }
 
@@ -29,17 +28,25 @@ typedef struct s_sorted
 typedef struct s_stack
 {
 	t_list	*f_element;
-	int *partitions;
-	int count;
+	t_list	**p;
+	int 	count;
 	int max;
-	int min;
+
 }				t_stack;	
 
-typedef struct s_booleans
+typedef struct s_info
 {
-	int sorted;
 	int b_top;
-}			   t_booleans;
+	long a_top;
+	int instr;
+	int sorted;
+	int flag;
+	int a_rra_count;
+	int a_ra_count;
+	int b_rrb_count;
+	int b_rb_count;
+	int number_to_push;
+}			   t_info;
 
 /*
 ** =============================================================================
@@ -89,6 +96,11 @@ void sort_3_nums(t_stack *stack_a);
 void sort_5_nums(t_stack *stack_a, t_stack *stack_b, t_sorted *sort);
 void sort_others(t_stack *stack_a, t_stack *stack_b, t_sorted *sort);
 int partition_stack_a(t_stack *stack_a, t_stack *stack_b);
+int find_median(t_stack *stack,t_info *info ,int size);
+void rotate_back_stack_a(t_stack *stack_a, int ra_count);
+int find_next_number_in_stack_a(t_stack *stack_a, int number, t_info *info, t_stack *stack_b);
+int find_next_number(t_stack *stack_a, int number, int p);
+void find_number_of_moves(t_stack *stack_a, int nextnumber,t_stack *stack_b, t_info *info);
 /*
 ** =============================================================================
 ** Functions To Remove

@@ -10,6 +10,11 @@ void sort_2_nums(t_stack *stack_a)
 
 void sort_3_nums(t_stack *stack_a)
 {
+    if((stack_a->f_element->next->next->num > stack_a->f_element->next->num) && (stack_a->f_element->next->next->num > stack_a->f_element->num))
+    {
+        swap(stack_a, "sa");
+        return ;
+    }
     if(stack_a->f_element->num > stack_a->f_element->next->num)
     {
         swap(stack_a, "sa");
@@ -20,13 +25,13 @@ void sort_3_nums(t_stack *stack_a)
         swap(stack_a, "sa");
         reverse_rotate(stack_a, "rra");
     }
-    if(stack_a->f_element->num > stack_a->f_element->next->num)
-    {
-        swap(stack_a, "sa");
-    }
+    // if(stack_a->f_element->num > stack_a->f_element->next->num)
+    // {
+    //     swap(stack_a, "sa");
+    // }
 }
 
-void find_number_of_moves(t_stack *stack_a, int nextnumber)
+void find_number_of_moves(t_stack *stack_a, int nextnumber, t_stack *stack_b, t_info *info)
 {
     t_list *stack_ra;
     t_list *stack_rra;
@@ -55,29 +60,53 @@ void find_number_of_moves(t_stack *stack_a, int nextnumber)
     {
         while(i < ra_count)
         {
-            rotate(stack_a, "ra");
+            ///push(stack_b,stack_a, "pa");
+           rotate(stack_a,"ra");
             i++;
-   // stack_a->f_element = stack_a->f_element->next;
+            //stack_a->f_element = stack_a->f_element->next;
         }
+        // if(info->b_rb_count == 0)
+        // {
+        //     info->b_rb_count = ra_count;
+        //     info->number_to_push = nextnumber;
+            
+        // }
+        // else if(ra_count < info->b_rb_count)
+        // {
+        //     info->b_rb_count = ra_count;
+        //     info->number_to_push = nextnumber;
+        // }
     }
     else
     {
         while(i < rra_count)
         {
-            reverse_rotate(stack_a, "rra");
+           reverse_rotate(stack_a, "rra");
             i++;
-   // stack_a->f_element = stack_a->f_element->next;
+            //stack_a->f_element = stack_a->f_element->next;
         }
+        // if(info->b_rrb_count == 0)
+        // {
+        //     info->b_rrb_count = rra_count;
+        //      info->number_to_push = nextnumber;
+        // }
+        // else if(  rra_count < info->b_rrb_count)
+        // {
+        //     info->b_rrb_count = rra_count;
+        //      info->number_to_push = nextnumber;
+        // }
     }
+   
+    
 }
 
-int find_next_number_in_stack_a(t_stack *stack_a, int number)
+int find_next_number_in_stack_a(t_stack *stack_a, int number, t_info *info,t_stack *stack_b)
 {
     t_list *list;
 
     list = stack_a->f_element;
     int min;
-     int t;
+    int t;
     int next_number;
     int n;
     int i;
@@ -94,7 +123,7 @@ int find_next_number_in_stack_a(t_stack *stack_a, int number)
         min = min * -1;
     next_number = list->num;
    // printf("mins = %d\n", min);
-    while(list != NULL)
+    while(list !=  NULL)
     {
         // printf("n = %d\n", n);
         n = list->num;
@@ -115,9 +144,9 @@ int find_next_number_in_stack_a(t_stack *stack_a, int number)
        // printf("k");
     }
     i = 0;
-    find_number_of_moves(stack_a, next_number);
+   find_number_of_moves(stack_a, next_number,stack_b, info);
 
-//     while(i < j)
+//     while(stack_a->f_element->num != next_number)
 //     {
 //         rotate(stack_a, "ra");
 //         i++;
@@ -173,7 +202,7 @@ int find_next_number(t_stack *stack_a, int number, int p)
         y++;
        // printf("k");
     }
-  //  i = 0;
+  ////  i = 0;
     //find_number_of_moves(stack_a, next_number);
 
 //     while(i < j)
@@ -331,7 +360,7 @@ void sort_others(t_stack *stack_a, t_stack *stack_b, t_sorted *sort)
             //      min_b = stack_a->f_element->num;
             // if(stack_b->f_element)
             // {
-                j = find_next_number_in_stack_a(stack_b, stack_a->f_element->num);
+              //  j = find_next_number_in_stack_a(stack_b, stack_a->f_element->num);
                 if(stack_b->f_element->num < j)
                 {
                     push(stack_b, stack_a, "pa");
