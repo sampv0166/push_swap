@@ -89,7 +89,8 @@ int verify_input(int argc, char **argv, t_sorted *sort);
 */
 void sort_2_nums(t_stack *stack_a);
 void sort_3_nums(t_stack *stack_a);
-void sort_5_nums(t_stack *stack_a, t_stack *stack_b, t_sorted *sort);
+void sort_5_nums(t_stack *stack_a, t_stack *stack_b, t_sorted *sort, t_info *info);
+void sort_the_rest(t_stack *stack_a, t_stack *stack_b, t_info *info);
 int find_median(t_stack *stack,t_info *info ,int size);
 int find_next_number_in_stack_a(t_stack *stack_a, int number, t_info *info, t_stack *stack_b);
 void find_number_of_moves_stack_a(t_stack *stack_a, int num ,t_stack *stack_b, t_info *info);

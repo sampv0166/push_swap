@@ -271,35 +271,51 @@ void push_to_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
     push(stack_b,stack_a, "pa");
 }
 
+void sort_the_rest(t_stack *stack_a, t_stack *stack_b, t_info *info)
+{
+    int i;
+
+    i = 0;
+    while(i == 0)
+    {
+        stack_a_is_sorted(stack_a, info);
+        if(!info->sorted)
+            sort_stack_a(stack_a, stack_b, info);
+        else if (stack_b->f_element != NULL)
+        {
+            while (stack_b->f_element)   
+            {  
+                push_to_a(stack_a, stack_b, info);
+                i = 1;
+            }
+        }
+    }  
+}
+
 int main(int argc, char **argv)
 {
     t_stack stack_a;
     t_stack stack_b;
     t_info info;
     t_sorted sort;
-    int i;
 
-    i = 0;
     initialize_stacks(&stack_a, &stack_b, argc, &info);
     sort_to_array(&sort, argc, argv); 
     create_list(argc, argv, &stack_a);
     stack_a_is_sorted(&stack_a, &info);
     if(info.sorted)
         exit(1);
-    while(i == 0)
-    {
-        stack_a_is_sorted(&stack_a, &info);
-        if(!info.sorted)
-            sort_stack_a(&stack_a, &stack_b, &info);
-        else if (stack_b.f_element != NULL)
-        {
-            while (stack_b.f_element)   
-            {  
-                push_to_a(&stack_a, &stack_b, &info);
-                i = 1;
-            }
-        }
-    }
+    if(argc == 3)
+        sort_2_nums(&stack_a);
+    else if(argc == 4)
+        sort_3_nums(&stack_a);
+    // else if(argc == 6)
+    // {
+    //     sort_5_nums(&stack_a, &stack_b, &sort, &info);
+    // }
+    else
+        sort_the_rest(&stack_a, &stack_b,&info) ;       
+
     printf("stack a\n");
     print_stack(stack_a.f_element);
     printf("stack b\n");
