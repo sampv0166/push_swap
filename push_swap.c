@@ -7,13 +7,11 @@ void stack_a_is_sorted(t_stack *stack_a, t_info *info)
     int j;
 
     j = 0;
-
     f = 0;
     temp_list = stack_a->f_element;
     while(temp_list)
     {
-       
-        if(temp_list->next && temp_list->num  > temp_list->next->num)
+         if(temp_list->next && temp_list->num  > temp_list->next->num)
         {
             f = 1;
             break ;
@@ -22,17 +20,9 @@ void stack_a_is_sorted(t_stack *stack_a, t_info *info)
         j++;
     }
     if(f == 1)
-    {
-         info->sorted = 0;
-       
-    }  
+        info->sorted = 0;   
     else    
-    {
-  info->a_top = stack_a->f_element->num;
- info->sorted = 1;
-    }
-       
-
+        info->sorted = 1;
 }
 
 void initialize_stacks(t_stack *stack_a, t_stack *stack_b, int argc, t_info *info)
@@ -41,16 +31,11 @@ void initialize_stacks(t_stack *stack_a, t_stack *stack_b, int argc, t_info *inf
     stack_a->f_element = 0;
     info->sorted = 0;    
     info->instr = __INT_MAX__;
-    info->a_top = 2147483648;
-    info->b_top = -1;
-    stack_b->p = malloc(sizeof (t_list*) * argc);
-    stack_b->p[0] = NULL;
     info->flag = 0;
     stack_a->count = 0;
     stack_b->count = 0;
-        stack_b->max = 0;
+    stack_b->max = 0;
     stack_a->max = 0;
-
 }
 
 static void sort_to_array(t_sorted *sort, int argc, char **argv)
@@ -99,7 +84,7 @@ int get_size_of_unsorted_list(t_stack *stack, t_info *info)
 
     temp_list = stack->f_element;
     size = 0;
-    while(temp_list && temp_list->num != info->a_top)
+    while(temp_list)
     {
         temp_list = temp_list->next;
         size++;
@@ -123,14 +108,14 @@ int find_median(t_stack *stack,t_info *info, int size)
         s++;
     }
     quickSort(numbers, 0, s);
-    //  if(size % 2 == 0)
-    //  {
-    //      median = ((numbers[s / 2] + numbers[(s / 2) + 1]) / 2 );
-    //  }
-    //  else
-    //  {
+     if(size % 2 == 0)
+     {
+         median = ((numbers[s / 2] + numbers[(s / 2) + 1]) / 2 );
+     }
+     else
+     {
          median = numbers[s / 2];
-   // }
+   }
     return (median);
 }
 
@@ -146,7 +131,6 @@ int chec_last_num(t_list *list)
             break ; 
         temp = temp->next;    
     }
-    printf("\ncheck num == %d\n", temp->next->num);
     return (temp->next->num);
 }
 
@@ -154,7 +138,6 @@ void divide_stack_a(t_stack *stack_a, t_stack *stack_b, t_info *info, int median
 {
     int i;
     i = 0;
-      printf("\nmedian%d\n",median);
     while(i < size)
     {
         //find_number_of_moves(stack_a,)
@@ -197,20 +180,6 @@ void sort_stack_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
     } 
 }
 
-int get_list_count(t_stack *stack)
-{
-    t_list *temp;
-    int i;
-
-    temp = stack->f_element;
-    i = 0;
-    while(temp)
-    {
-        i++;
-        temp =  temp->next;
-    }
-    return (i);
-}
 
 void init_temp_info(t_info *temp_info)
 {
@@ -249,7 +218,6 @@ void push_to_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
     info->b_rrb_count = 0;
     info->b_rb_count = 0;
     info->number_to_push = 0;
-    print_stack(stack_b->f_element);
     while(temp_b)
     {
         init_temp_info(&temp_info);
@@ -284,7 +252,6 @@ void push_to_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
             info->a_rra_count = info->a_rra_count - 1;
         }
     }
-
     if(info->b_rb_count)
     {
         while(info->b_rb_count)
@@ -313,26 +280,24 @@ int main(int argc, char **argv)
     int i;
 
     i = 0;
-
     initialize_stacks(&stack_a, &stack_b, argc, &info);
     sort_to_array(&sort, argc, argv); 
     create_list(argc, argv, &stack_a);
-
+    stack_a_is_sorted(&stack_a, &info);
+    if(info.sorted)
+        exit(1);
     while(i == 0)
     {
-        if(stack_a.f_element)
-            stack_a_is_sorted(&stack_a, &info);
-        if(info.sorted && stack_b.f_element == NULL)
-            break ;  
+        stack_a_is_sorted(&stack_a, &info);
         if(!info.sorted)
             sort_stack_a(&stack_a, &stack_b, &info);
         else if (stack_b.f_element != NULL)
         {
-         while (stack_b.f_element)   
-         {  
-            push_to_a(&stack_a, &stack_b, &info);
-            i = 1;
-         }
+            while (stack_b.f_element)   
+            {  
+                push_to_a(&stack_a, &stack_b, &info);
+                i = 1;
+            }
         }
     }
     printf("stack a\n");

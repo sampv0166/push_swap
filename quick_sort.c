@@ -10,16 +10,21 @@ void swapp(int *a, int *b) {
 int partition(int array[], int low, int high) {
   
   // select the rightmost element as pivot
-  int pivot = array[high];
-  
+  int pivot;
   // pointer for greater element
-  int i = (low - 1);
+  int i ;
+  int j;
 
+  pivot = array[high];
+  i = (low - 1);
+  j = low ; 
   // traverse each element of the array
   // compare them with the pivot
-  for (int j = low; j < high; j++) {
-    if (array[j] <= pivot) {
-        
+
+  while(j < low)
+  {
+    if (array[j] <= pivot) 
+    {    
       // if element smaller than pivot is found
       // swap it with the greater element pointed by i
       i++;
@@ -27,8 +32,8 @@ int partition(int array[], int low, int high) {
       // swap element at i with element at j
       swapp(&array[i], &array[j]);
     }
-  }
-
+    j++;
+}
   // swap the pivot element with the greater element at i
   swapp(&array[i + 1], &array[high]);
   
