@@ -223,7 +223,7 @@ void init_temp_info(t_info *temp_info)
     temp_info->number_to_push = 0;
 }
 
-void store_instructions(t_info *info, t_info *temp_info)
+void store_instructions(t_info *info, t_info *temp_info,t_list *temp_b)
 {
    info->instr  =     temp_info->instr ;
     info->a_rra_count  =  temp_info->a_rra_count ;
@@ -231,14 +231,16 @@ void store_instructions(t_info *info, t_info *temp_info)
 
      info->b_rrb_count  = temp_info->b_rrb_count ;
      info->b_rb_count  = temp_info->b_rb_count ;
-    info->number_to_push  =  temp_info->number_to_push ;
+    info->number_to_push  = temp_b->num ;
 }
 
 void push_to_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
 {
     t_info temp_info;
     t_list *temp_b;
+    int num ; 
 
+    num = 0;
     temp_b = stack_b->f_element;
     info->instr = 2147483648;
     info->a_rra_count = 0;
@@ -247,24 +249,25 @@ void push_to_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
     info->b_rrb_count = 0;
     info->b_rb_count = 0;
     info->number_to_push = 0;
+    print_stack(stack_b->f_element);
     while(temp_b)
     {
         init_temp_info(&temp_info);
-        temp_info.number_to_push = find_next_number_in_stack_a(stack_a,stack_b->f_element->num,info,stack_a);
+        temp_info.number_to_push = find_next_number_in_stack_a(stack_a,temp_b->num,info,stack_a);
+
         find_number_of_moves_stack_a(stack_a, temp_info.number_to_push ,stack_b, &temp_info);
         find_number_of_moves_stack_b(stack_b, &temp_info, temp_b);
         temp_info.instr = temp_info.a_ra_count + temp_info.a_rra_count + temp_info.b_rb_count + temp_info.b_rrb_count;
-          printf("\ntemp info instr == %ld\n", temp_info.instr);
         if(info->instr > temp_info.instr)
         {
-            printf("hererere\n");
-store_instructions(info, &temp_info);
+            store_instructions(info, &temp_info,temp_b);
+            num = temp_info.number_to_push;
         }
             
         temp_b = temp_b->next;
     }
-    printf("\ninstr == %ld\n", info->instr);
-
+    if(info->number_to_push > num)
+            info->a_ra_count = info->a_ra_count  + 1;
     if(info->a_ra_count)
     {
         while(info->a_ra_count)
@@ -273,7 +276,7 @@ store_instructions(info, &temp_info);
             info->a_ra_count = info->a_ra_count - 1;
         }
     }
-    else
+    if(info->a_rra_count)
     {
            while(info->a_rra_count)
         {
@@ -290,7 +293,7 @@ store_instructions(info, &temp_info);
             info->b_rb_count = info->b_rb_count - 1;
         }
     }
-    else
+    else if( info->b_rrb_count)
     {
         while(info->b_rrb_count)
         {
@@ -298,28 +301,7 @@ store_instructions(info, &temp_info);
             info->b_rrb_count = info->b_rrb_count - 1;
         }
     }
-
     push(stack_b,stack_a, "pa");
-
-    // int j ;
-
-    // j = 0;
-    // int k;
-
-    // k = get_list_count(stack_a);
-    //         printf("\nk ==%d\n", k);
-
-    //     j = find_next_number_in_stack_a(stack_b, stack_a->f_element->num, info, stack_b);
-    //     if( j < stack_b->f_element->num )
-    //     {
-    //         push(stack_b, stack_a, "pa");
-    //         swap(stack_a, "ra");
-    //     }
-    //     else
-    //     {
-    //         push(stack_b, stack_a, "pa");
-    //     }
-    //     printf("stack a\n");
 }
 
 int main(int argc, char **argv)
@@ -336,35 +318,26 @@ int main(int argc, char **argv)
     sort_to_array(&sort, argc, argv); 
     create_list(argc, argv, &stack_a);
 
-    while(1)
+    while(i == 0)
     {
         if(stack_a.f_element)
             stack_a_is_sorted(&stack_a, &info);
         if(info.sorted && stack_b.f_element == NULL)
             break ;  
         if(!info.sorted)
-        {
             sort_stack_a(&stack_a, &stack_b, &info);
-        }
         else if (stack_b.f_element != NULL)
         {
-        printf("\n---------------------\n");
-          print_stack(stack_a.f_element);
          while (stack_b.f_element)   
          {  
-            
-            //exit(1);
             push_to_a(&stack_a, &stack_b, &info);
             i = 1;
          }
-         if(i == 1)
-            break ; 
         }
- 
     }
- printf("stack a\n");
-             print_stack(stack_a.f_element);
-            printf("stack b\n");
-            print_stack(stack_b.f_element);
-            printf("\ntotal instructions : %d", stack_a.max + stack_b.max);
+    printf("stack a\n");
+    print_stack(stack_a.f_element);
+    printf("stack b\n");
+    print_stack(stack_b.f_element);
+    printf("\ntotal instructions : %d", stack_a.max + stack_b.max);
 }

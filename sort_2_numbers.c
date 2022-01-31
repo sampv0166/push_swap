@@ -39,20 +39,26 @@ void find_number_of_moves_stack_a(t_stack *stack_a, int nextnumber, t_stack *sta
     ra_count = 0;
     rra_count = 0;
     stack_ra = stack_a->f_element;
-    while(stack_ra->num != nextnumber)
+    while(stack_ra && stack_ra->num != nextnumber)
     {
+        printf("hhra\n");
         stack_ra = stack_ra->next;
         ra_count++;
     }
     while(stack_ra != NULL)
     {
+          printf("hhrra\n");
         stack_ra = stack_ra->next;
         rra_count++;
     }
     if(ra_count <= rra_count)
         temp_info->a_ra_count = ra_count;
     else
-        temp_info->a_rra_count = rra_count;    
+    {
+         temp_info->a_rra_count = rra_count;  
+        printf("\n its here \n");
+    }
+         
 }
 
 void find_number_of_moves_stack_b(t_stack *stack_b, t_info *temp_info, t_list *temp_b)
@@ -64,12 +70,12 @@ void find_number_of_moves_stack_b(t_stack *stack_b, t_info *temp_info, t_list *t
     rb_count = 0;
     rrb_count = 0;
     stack_rb = stack_b->f_element;
-    while(stack_rb->num != temp_b->num)
+    while(stack_rb && stack_rb->num != temp_b->num)
     {
         stack_rb = stack_rb->next;
         rb_count++;
     }
-    while(stack_rb != NULL)
+    while( stack_rb != NULL)
     {
         stack_rb = stack_rb->next;
         rrb_count++;
@@ -168,7 +174,7 @@ int find_next_number_in_stack_a(t_stack *stack_a, int number, t_info *info,t_sta
     if (min < 0)
         min = min * -1;
     next_number = list->num;
-    while(list !=  NULL)
+    while(list != NULL)
     {
         n = list->num;
         t = n - number;
@@ -185,6 +191,7 @@ int find_next_number_in_stack_a(t_stack *stack_a, int number, t_info *info,t_sta
         list = list->next;
         i++;
     }
+    printf("\n next number ==== %d\n", next_number);
     return(next_number);
 }
 
