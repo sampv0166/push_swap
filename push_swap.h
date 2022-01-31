@@ -38,7 +38,7 @@ typedef struct s_info
 {
 	int b_top;
 	long a_top;
-	int instr;
+	long instr;
 	int sorted;
 	int flag;
 	int a_rra_count;
@@ -101,6 +101,8 @@ void rotate_back_stack_a(t_stack *stack_a, int ra_count);
 int find_next_number_in_stack_a(t_stack *stack_a, int number, t_info *info, t_stack *stack_b);
 int find_next_number(t_stack *stack_a, int number, int p);
 void find_number_of_moves(t_stack *stack_a, int nextnumber,t_stack *stack_b, t_info *info);
+void find_number_of_moves_stack_a(t_stack *stack_a, int num ,t_stack *stack_b, t_info *info);
+void find_number_of_moves_stack_b(t_stack *stack_b,t_info *temp_info,t_list *temp_b);
 /*
 ** =============================================================================
 ** Functions To Remove

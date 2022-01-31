@@ -30,6 +30,55 @@ void sort_3_nums(t_stack *stack_a)
     //     swap(stack_a, "sa");
     // }
 }
+void find_number_of_moves_stack_a(t_stack *stack_a, int nextnumber, t_stack *stack_b, t_info *temp_info)
+{
+    t_list *stack_ra;
+    int ra_count;
+    int rra_count;
+
+    ra_count = 0;
+    rra_count = 0;
+    stack_ra = stack_a->f_element;
+    while(stack_ra->num != nextnumber)
+    {
+        stack_ra = stack_ra->next;
+        ra_count++;
+    }
+    while(stack_ra != NULL)
+    {
+        stack_ra = stack_ra->next;
+        rra_count++;
+    }
+    if(ra_count <= rra_count)
+        temp_info->a_ra_count = ra_count;
+    else
+        temp_info->a_rra_count = rra_count;    
+}
+
+void find_number_of_moves_stack_b(t_stack *stack_b, t_info *temp_info, t_list *temp_b)
+{
+    t_list *stack_rb;
+    int rb_count;
+    int rrb_count;
+
+    rb_count = 0;
+    rrb_count = 0;
+    stack_rb = stack_b->f_element;
+    while(stack_rb->num != temp_b->num)
+    {
+        stack_rb = stack_rb->next;
+        rb_count++;
+    }
+    while(stack_rb != NULL)
+    {
+        stack_rb = stack_rb->next;
+        rrb_count++;
+    }
+    if(rb_count <= rrb_count)
+        temp_info->b_rb_count = rb_count;
+    else
+        temp_info->b_rrb_count = rrb_count;    
+}
 
 void find_number_of_moves(t_stack *stack_a, int nextnumber, t_stack *stack_b, t_info *info)
 {
@@ -114,18 +163,13 @@ int find_next_number_in_stack_a(t_stack *stack_a, int number, t_info *info,t_sta
 
     i = 0;
     j = 0;
-    // printf("number = %d\n", number);
-    // printf("lsit->num = %d\n", list->num );
- 
-    // printf("min =  number - list->num = %d - %d\n",number, list->num);
+
     min =  number - list->num ;
     if (min < 0)
         min = min * -1;
     next_number = list->num;
-   // printf("mins = %d\n", min);
     while(list !=  NULL)
     {
-        // printf("n = %d\n", n);
         n = list->num;
         t = n - number;
         if (t < 0)
@@ -137,23 +181,10 @@ int find_next_number_in_stack_a(t_stack *stack_a, int number, t_info *info,t_sta
                 min = min * -1;
             next_number = list->num;
             j = i;
-            //printf("min = %d \n", next_number);
         }
         list = list->next;
         i++;
-       // printf("k");
     }
-    i = 0;
-   find_number_of_moves(stack_a, next_number,stack_b, info);
-
-//     while(stack_a->f_element->num != next_number)
-//     {
-//         rotate(stack_a, "ra");
-//         i++;
-//    // stack_a->f_element = stack_a->f_element->next;
-//     }
-   // print_stack(stack_a->f_element);
-    //printf("hh ======%d\n",stack_a->f_element->num);
     return(next_number);
 }
 

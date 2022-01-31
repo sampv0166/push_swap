@@ -40,7 +40,7 @@ void initialize_stacks(t_stack *stack_a, t_stack *stack_b, int argc, t_info *inf
     stack_b->f_element = NULL;
     stack_a->f_element = 0;
     info->sorted = 0;    
-    info->instr = 0;
+    info->instr = __INT_MAX__;
     info->a_top = 2147483648;
     info->b_top = -1;
     stack_b->p = malloc(sizeof (t_list*) * argc);
@@ -50,6 +50,7 @@ void initialize_stacks(t_stack *stack_a, t_stack *stack_b, int argc, t_info *inf
     stack_b->count = 0;
         stack_b->max = 0;
     stack_a->max = 0;
+
 }
 
 static void sort_to_array(t_sorted *sort, int argc, char **argv)
@@ -213,13 +214,24 @@ int get_list_count(t_stack *stack)
 
 void init_temp_info(t_info *temp_info)
 {
-    temp_info->instr = __INT_MAX__;
-    temp_info->a_rra_count = __INT_MAX__;
-    temp_info->a_ra_count = __INT_MAX__;
+    temp_info->instr = 0;
+    temp_info->a_rra_count = 0;
+    temp_info->a_ra_count = 0;
 
-    temp_info->b_rrb_count = __INT_MAX__;
-    temp_info->b_rb_count = __INT_MAX__;
+    temp_info->b_rrb_count = 0;
+    temp_info->b_rb_count = 0;
     temp_info->number_to_push = 0;
+}
+
+void store_instructions(t_info *info, t_info *temp_info)
+{
+   info->instr  =     temp_info->instr ;
+    info->a_rra_count  =  temp_info->a_rra_count ;
+    info->a_ra_count  =  temp_info->a_ra_count ;
+
+     info->b_rrb_count  = temp_info->b_rrb_count ;
+     info->b_rb_count  = temp_info->b_rb_count ;
+    info->number_to_push  =  temp_info->number_to_push ;
 }
 
 void push_to_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
@@ -228,33 +240,86 @@ void push_to_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
     t_list *temp_b;
 
     temp_b = stack_b->f_element;
-    init_temp_info(&temp_info);
+    info->instr = 2147483648;
+    info->a_rra_count = 0;
+    info->a_ra_count = 0;
+
+    info->b_rrb_count = 0;
+    info->b_rb_count = 0;
+    info->number_to_push = 0;
     while(temp_b)
     {
-        info->number_to_push = find_next_number_in_stack_a
+        init_temp_info(&temp_info);
+        temp_info.number_to_push = find_next_number_in_stack_a(stack_a,stack_b->f_element->num,info,stack_a);
+        find_number_of_moves_stack_a(stack_a, temp_info.number_to_push ,stack_b, &temp_info);
+        find_number_of_moves_stack_b(stack_b, &temp_info, temp_b);
+        temp_info.instr = temp_info.a_ra_count + temp_info.a_rra_count + temp_info.b_rb_count + temp_info.b_rrb_count;
+          printf("\ntemp info instr == %ld\n", temp_info.instr);
+        if(info->instr > temp_info.instr)
+        {
+            printf("hererere\n");
+store_instructions(info, &temp_info);
+        }
+            
         temp_b = temp_b->next;
     }
-    
+    printf("\ninstr == %ld\n", info->instr);
 
-    int j ;
-
-    j = 0;
-    int k;
-
-    k = get_list_count(stack_a);
-            printf("\nk ==%d\n", k);
-
-        j = find_next_number_in_stack_a(stack_b, stack_a->f_element->num, info, stack_b);
-        if( j < stack_b->f_element->num )
+    if(info->a_ra_count)
+    {
+        while(info->a_ra_count)
         {
-            push(stack_b, stack_a, "pa");
-            swap(stack_a, "ra");
+            rotate(stack_a, "ra");
+            info->a_ra_count = info->a_ra_count - 1;
         }
-        else
+    }
+    else
+    {
+           while(info->a_rra_count)
         {
-            push(stack_b, stack_a, "pa");
+            reverse_rotate(stack_a, "rra");
+            info->a_rra_count = info->a_rra_count - 1;
         }
-        printf("stack a\n");
+    }
+
+    if(info->b_rb_count)
+    {
+        while(info->b_rb_count)
+        {
+            rotate(stack_b, "rb");
+            info->b_rb_count = info->b_rb_count - 1;
+        }
+    }
+    else
+    {
+        while(info->b_rrb_count)
+        {
+            reverse_rotate(stack_b, "rrb");
+            info->b_rrb_count = info->b_rrb_count - 1;
+        }
+    }
+
+    push(stack_b,stack_a, "pa");
+
+    // int j ;
+
+    // j = 0;
+    // int k;
+
+    // k = get_list_count(stack_a);
+    //         printf("\nk ==%d\n", k);
+
+    //     j = find_next_number_in_stack_a(stack_b, stack_a->f_element->num, info, stack_b);
+    //     if( j < stack_b->f_element->num )
+    //     {
+    //         push(stack_b, stack_a, "pa");
+    //         swap(stack_a, "ra");
+    //     }
+    //     else
+    //     {
+    //         push(stack_b, stack_a, "pa");
+    //     }
+    //     printf("stack a\n");
 }
 
 int main(int argc, char **argv)
@@ -284,10 +349,11 @@ int main(int argc, char **argv)
         else if (stack_b.f_element != NULL)
         {
         printf("\n---------------------\n");
+          print_stack(stack_a.f_element);
          while (stack_b.f_element)   
          {  
             
-             // exit(1);
+            //exit(1);
             push_to_a(&stack_a, &stack_b, &info);
             i = 1;
          }
