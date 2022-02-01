@@ -46,7 +46,7 @@ static void sort_to_array(t_sorted *sort, int argc, char **argv)
     sort->sorted = (int *) malloc (sizeof(int) * argc);
     i = 1;
     j = 0;
-    while(i < argc)
+    while(i < argc - 1)
     {
         sort->sorted[j] = ft_atoi(argv[i]);
         i++;
@@ -61,10 +61,9 @@ static void create_list(int argc, char **argv, t_stack *stack)
 {
     int i;
     int j;
-
+  
     t_list *temp_list;
     t_list *stack_a;
-
     stack_a = ft_lstnew(ft_atoi(argv[1]));
     i = 2;
     while(i < argc)
@@ -292,19 +291,70 @@ void sort_the_rest(t_stack *stack_a, t_stack *stack_b, t_info *info)
     }  
 }
 
+static void create_list2(int argc, char **argv, t_stack *stack)
+{
+    int i;
+    int j;
+  
+    t_list *temp_list;
+    t_list *stack_a;
+    stack_a = ft_lstnew(ft_atoi(argv[0]));
+   // printf
+
+    i = 1;
+    while(i < argc - 1) 
+    {
+        temp_list = ft_lstnew(ft_atoi(argv[i]));
+        ft_lstadd_back(stack_a, temp_list);
+        i++;
+    }
+    stack->count = argc - 1;
+    stack->f_element = stack_a;
+}
+
 int main(int argc, char **argv)
 {
     t_stack stack_a;
     t_stack stack_b;
     t_info info;
     t_sorted sort;
+    char **split;
 
     initialize_stacks(&stack_a, &stack_b, argc, &info);
-    sort_to_array(&sort, argc, argv); 
-    create_list(argc, argv, &stack_a);
+    
+    if(argc == 2)
+    {
+        split = ft_split(argv[1],' ') ; 
+        int i ;
+        i = 0;
+     while(split[i])
+    {
+        printf("%s\n",split[i++]);
+        //printf("okk");
+    }
+        argc = i + 1;
+        printf("argc == %d\n", argc);
+        //--------------------------------------------------
+
+    create_list2(argc, split, &stack_a);
+    //---------------------------------------------------
+    sort_to_array(&sort, argc, split); 
+   
+    }
+    else
+    {
+        create_list(argc, argv, &stack_a);
+        sort_to_array(&sort, argc, argv); 
+    }
+
+    print_stack(stack_a.f_element);
     stack_a_is_sorted(&stack_a, &info);
     if(info.sorted)
+    {
+        printf("okk");
         exit(1);
+    }
+      
     if(argc == 3)
         sort_2_nums(&stack_a);
     else if(argc == 4)

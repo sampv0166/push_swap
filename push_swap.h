@@ -72,7 +72,7 @@ void	print_operation(char *op);
 size_t  ft_strlen(const char *str);
 int     ft_atoi(const char *str);
 int		ft_isdigit(int val);
-
+char	**ft_split(char const *s, char c);
 void	quickSort(int array[], int low, int high);
 /*
 ** =============================================================================
