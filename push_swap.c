@@ -25,7 +25,7 @@ void stack_a_is_sorted(t_stack *stack_a, t_info *info)
         info->sorted = 1;
 }
 
-void initialize_stacks(t_stack *stack_a, t_stack *stack_b, int argc, t_info *info)
+void initialize_stacks(t_stack *stack_a, t_stack *stack_b,t_info *info)
 {
     stack_b->f_element = NULL;
     stack_a->f_element = 0;
@@ -38,26 +38,26 @@ void initialize_stacks(t_stack *stack_a, t_stack *stack_b, int argc, t_info *inf
     stack_a->max = 0;
 }
 
-static void sort_to_array(t_sorted *sort, int argc, char **argv)
+static void sort_to_array(t_sorted *sort, int *argc, char **argv)
 {
     int i;
     int j;
 
-    sort->sorted = (int *) malloc (sizeof(int) * argc);
+    sort->sorted = (int *) malloc (sizeof(int) * (*argc));
     i = 1;
     j = 0;
-    while(i < argc - 1)
+    while(i < (*argc) - 1)
     {
         sort->sorted[j] = ft_atoi(argv[i]);
         i++;
         j++;
     }
     argv[i] = NULL;
-    quickSort(sort->sorted, 0, argc - 2);
-    sort->length = argc - 1;
+    quickSort(sort->sorted, 0, (*argc) - 2);
+    sort->length = (*argc) - 1;
 }
 
-static void create_list(int argc, char **argv, t_stack *stack)
+static void create_list(int *argc, char **argv, t_stack *stack)
 {
     int i;
     int j;
@@ -66,13 +66,13 @@ static void create_list(int argc, char **argv, t_stack *stack)
     t_list *stack_a;
     stack_a = ft_lstnew(ft_atoi(argv[1]));
     i = 2;
-    while(i < argc)
+    while(i < (*argc))
     {
         temp_list = ft_lstnew(ft_atoi(argv[i]));
         ft_lstadd_back(stack_a, temp_list);
         i++;
     }
-    stack->count = argc - 1;
+    stack->count = (*argc) - 1;
     stack->f_element = stack_a;
 }
 
@@ -139,19 +139,12 @@ void divide_stack_a(t_stack *stack_a, t_stack *stack_b, t_info *info, int median
     i = 0;
     while(i < size)
     {
-        //find_number_of_moves(stack_a,)
-        if(stack_a->f_element->num <= median)
-        {   
+        if(stack_a->f_element->num <= median)   
             push(stack_a, stack_b, "pb");
-        }
         else if(chec_last_num(stack_a->f_element) <= median)
-        {
             reverse_rotate(stack_a, "rra");
-        }
         else
-        {
             rotate(stack_a, "ra");
-        }
         i++;    
     }
 }
@@ -211,12 +204,7 @@ void push_to_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
     num = 0;
     temp_b = stack_b->f_element;
     info->instr = 2147483648;
-    info->a_rra_count = 0;
-    info->a_ra_count = 0;
-
-    info->b_rrb_count = 0;
-    info->b_rb_count = 0;
-    info->number_to_push = 0;
+    
     while(temp_b)
     {
         init_temp_info(&temp_info);
@@ -230,7 +218,6 @@ void push_to_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
             store_instructions(info, &temp_info,temp_b);
             num = temp_info.number_to_push;
         }
-            
         temp_b = temp_b->next;
     }
     if(info->number_to_push > num)
@@ -291,7 +278,7 @@ void sort_the_rest(t_stack *stack_a, t_stack *stack_b, t_info *info)
     }  
 }
 
-static void create_list2(int *argc, char **argv, t_stack *stack)
+static void create_list_from_single_argument(int *argc, char **argv, t_stack *stack)
 {
     int i;
     int j;
@@ -315,48 +302,47 @@ static void create_list2(int *argc, char **argv, t_stack *stack)
     stack->f_element = stack_a;
 }
 
+void create_stack(int *argc, char **argv, t_stack *stack_a, t_sorted *sort)
+{
+    char **split_args;
+
+    split_args = NULL;
+    if(*argc == 2)
+    {
+        split_args = ft_split(argv[1], ' ');
+        create_list_from_single_argument(argc, split_args, stack_a);
+        sort_to_array(sort, argc, split_args);
+    }
+    else
+    {
+        create_list(argc, argv, stack_a);
+        sort_to_array(sort, argc, argv); 
+    }
+}
+
 int main(int argc, char **argv)
 {
     t_stack stack_a;
     t_stack stack_b;
-    t_info info;
     t_sorted sort;
-    int i;
+    t_info info;
  
-    initialize_stacks(&stack_a, &stack_b, argc, &info);
-    
-    if(argc == 2)
-    { 
-        create_list2(&argc, ft_split(argv[1],' '), &stack_a);
-        sort_to_array(&sort, argc, ft_split(argv[1],' '));
-    }
-    else
-    {
-        create_list(argc, argv, &stack_a);
-        sort_to_array(&sort, argc, argv); 
-    }
-
-    print_stack(stack_a.f_element);
+    initialize_stacks(&stack_a, &stack_b, &info);
+    create_stack(&argc, argv,&stack_a,&sort);   
     stack_a_is_sorted(&stack_a, &info);
-    if(info.sorted)
+    if(!info.sorted)
     {
-        exit(1);
+        if(argc == 3)
+            sort_2_nums(&stack_a);
+        else if(argc == 4)
+            sort_3_nums(&stack_a);
+        else
+            sort_the_rest(&stack_a, &stack_b,&info) ;       
+        printf("stack a\n");
+        print_stack(stack_a.f_element);
+        printf("stack b\n");
+        print_stack(stack_b.f_element);
+        printf("\ntotal instructions : %d", stack_a.max + stack_b.max);
     }
-      
-    if(argc == 3)
-        sort_2_nums(&stack_a);
-    else if(argc == 4)
-        sort_3_nums(&stack_a);
-    // else if(argc == 6)
-    // {
-    //     sort_5_nums(&stack_a, &stack_b, &sort, &info);
-    // }
-    else
-        sort_the_rest(&stack_a, &stack_b,&info) ;       
-
-    printf("stack a\n");
-    print_stack(stack_a.f_element);
-    printf("stack b\n");
-    print_stack(stack_b.f_element);
-    printf("\ntotal instructions : %d", stack_a.max + stack_b.max);
+    return (0); 
 }
