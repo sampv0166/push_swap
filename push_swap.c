@@ -34,8 +34,6 @@ void initialize_stacks(t_stack *stack_a, t_stack *stack_b,t_info *info)
     info->flag = 0;
     stack_a->count = 0;
     stack_b->count = 0;
-    stack_b->max = 0;
-    stack_a->max = 0;
 }
 
 static void sort_to_array(t_sorted *sort, int *argc, char **argv)
@@ -139,10 +137,8 @@ void divide_stack_a(t_stack *stack_a, t_stack *stack_b, t_info *info, int median
     i = 0;
     while(i < size)
     {
-        if(stack_a->f_element->num <= median)   
+        if(stack_a->f_element && stack_a->f_element->num <= median)   
             push(stack_a, stack_b, "pb");
-        else if(chec_last_num(stack_a->f_element) <= median)
-            reverse_rotate(stack_a, "rra");
         else
             rotate(stack_a, "ra");
         i++;    
@@ -164,9 +160,7 @@ void sort_stack_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
     else
     {
         if(size == 3)
-        {
             sort_3_nums(stack_a);
-        }
         if(size == 2)
             sort_2_nums(stack_a);
     } 
@@ -195,47 +189,23 @@ void store_instructions(t_info *info, t_info *temp_info,t_list *temp_b)
     info->number_to_push  = temp_b->num ;
 }
 
-void push_to_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
+void execute_rotation_instructions(t_info *info, int num, t_stack *stack_a, t_stack *stack_b)
 {
-    t_info temp_info;
-    t_list *temp_b;
-    int num ; 
-
-    num = 0;
-    temp_b = stack_b->f_element;
-    info->instr = 2147483648;
-    
-    while(temp_b)
-    {
-        init_temp_info(&temp_info);
-        temp_info.number_to_push = find_next_number_in_stack_a(stack_a,temp_b->num,info,stack_a);
-
-        find_number_of_moves_stack_a(stack_a, temp_info.number_to_push ,stack_b, &temp_info);
-        find_number_of_moves_stack_b(stack_b, &temp_info, temp_b);
-        temp_info.instr = temp_info.a_ra_count + temp_info.a_rra_count + temp_info.b_rb_count + temp_info.b_rrb_count;
-        if(info->instr > temp_info.instr)
-        {
-            store_instructions(info, &temp_info,temp_b);
-            num = temp_info.number_to_push;
-        }
-        temp_b = temp_b->next;
-    }
-    if(info->number_to_push > num)
-            info->a_ra_count = info->a_ra_count  + 1;
     if(info->a_ra_count)
     {
         while(info->a_ra_count)
         {
-            rotate(stack_a, "ra");
-            info->a_ra_count = info->a_ra_count - 1;
-        }
-    }
-    if(info->a_rra_count)
-    {
-           while(info->a_rra_count)
-        {
-            reverse_rotate(stack_a, "rra");
-            info->a_rra_count = info->a_rra_count - 1;
+            if(info->b_rb_count)
+            {
+                info->b_rb_count--;
+                info->a_ra_count = info->a_ra_count - 1;
+                rr(stack_a, stack_b);
+            }
+            else
+            {
+                rotate(stack_a, "ra");
+                info->a_ra_count = info->a_ra_count - 1;
+            }   
         }
     }
     if(info->b_rb_count)
@@ -245,8 +215,30 @@ void push_to_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
             rotate(stack_b, "rb");
             info->b_rb_count = info->b_rb_count - 1;
         }
+    }  
+}
+
+void execute_rev_rotation_instructions(t_info *info, int num, t_stack *stack_a, t_stack *stack_b)
+{
+    if(info->a_rra_count)
+    {
+        while(info->a_rra_count)
+        {
+            if(info->b_rrb_count)
+            {
+                info->b_rrb_count--;
+                info->a_rra_count = info->a_rra_count - 1;  
+                rrr(stack_a, stack_b);
+            }
+            else
+            {
+                reverse_rotate(stack_a, "rra");
+                info->a_rra_count = info->a_rra_count - 1;    
+            }
+
+        }
     }
-    else if( info->b_rrb_count)
+    if(info->b_rrb_count)
     {
         while(info->b_rrb_count)
         {
@@ -255,6 +247,41 @@ void push_to_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
         }
     }
     push(stack_b,stack_a, "pa");
+}
+
+void find_minimum_instruction(t_stack *stack_a, t_stack *stack_b, t_info *info, int *num)
+{
+    t_info temp_info;
+    t_list *temp_b;
+
+    temp_b = stack_b->f_element;
+    info->instr = 2147483648;
+    while(temp_b)
+    {
+        init_temp_info(&temp_info);
+        temp_info.number_to_push = find_next_number_in_stack_a(stack_a,temp_b->num,info,stack_a);
+        find_number_of_moves_stack_a(stack_a, temp_info.number_to_push ,stack_b, &temp_info);
+        find_number_of_moves_stack_b(stack_b, &temp_info, temp_b);
+        temp_info.instr = temp_info.a_ra_count + temp_info.a_rra_count + temp_info.b_rb_count + temp_info.b_rrb_count;
+        if(info->instr > temp_info.instr)
+        {
+            store_instructions(info, &temp_info,temp_b);
+            *num = temp_info.number_to_push;
+        }
+        temp_b = temp_b->next;
+    }
+}
+
+void push_to_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
+{
+    int num; 
+
+    num = 0;
+    find_minimum_instruction(stack_a, stack_b, info, &num);
+    if(info->number_to_push > num)
+            info->a_ra_count = info->a_ra_count + 1;
+    execute_rotation_instructions(info, num, stack_a, stack_b);
+    execute_rev_rotation_instructions(info, num, stack_a, stack_b);
 }
 
 void sort_the_rest(t_stack *stack_a, t_stack *stack_b, t_info *info)
@@ -330,19 +357,19 @@ int main(int argc, char **argv)
     initialize_stacks(&stack_a, &stack_b, &info);
     create_stack(&argc, argv,&stack_a,&sort);   
     stack_a_is_sorted(&stack_a, &info);
-    if(!info.sorted)
+    if(!info.sorted && verify_input(argc, argv, &sort))
     {
         if(argc == 3)
             sort_2_nums(&stack_a);
         else if(argc == 4)
             sort_3_nums(&stack_a);
         else
-            sort_the_rest(&stack_a, &stack_b,&info) ;       
-        printf("stack a\n");
-        print_stack(stack_a.f_element);
-        printf("stack b\n");
-        print_stack(stack_b.f_element);
-        printf("\ntotal instructions : %d", stack_a.max + stack_b.max);
+            sort_the_rest(&stack_a, &stack_b, &info);  
     }
+    re_arrange_stack(&stack_a, sort.sorted[0]); 
+    printf("stack a\n");
+    print_stack(stack_a.f_element);
+    printf("stack b\n");
+    print_stack(stack_b.f_element);
     return (0); 
 }

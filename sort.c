@@ -3,9 +3,7 @@
 void sort_2_nums(t_stack *stack_a)
 {
     if(stack_a->f_element->num > stack_a->f_element->next->num)
-    {
         swap(stack_a, "sa");
-    }
 }
 
 void sort_3_nums(t_stack *stack_a)
@@ -43,7 +41,6 @@ void find_number_of_moves_stack_a(t_stack *stack_a, int nextnumber, t_stack *sta
     stack_ra = stack_a->f_element;
     while(stack_ra && stack_ra->num != nextnumber)
     {
-       
         stack_ra = stack_ra->next;
         ra_count++;
     }
@@ -55,10 +52,7 @@ void find_number_of_moves_stack_a(t_stack *stack_a, int nextnumber, t_stack *sta
     if(ra_count <= rra_count)
         temp_info->a_ra_count = ra_count;
     else
-    {
-         temp_info->a_rra_count = rra_count;  
-    }
-         
+         temp_info->a_rra_count = rra_count;         
 }
 
 void find_number_of_moves_stack_b(t_stack *stack_b, t_info *temp_info, t_list *temp_b)
@@ -86,7 +80,31 @@ void find_number_of_moves_stack_b(t_stack *stack_b, t_info *temp_info, t_list *t
         temp_info->b_rrb_count = rrb_count;    
 }
 
-void find_number_of_moves(t_stack *stack_a, int nextnumber, t_stack *stack_b, t_info *info)
+void fix_stack(int *ra_count, int *rra_count,t_stack *stack_a)
+{
+    int i;
+
+    i = 0;
+    if(*ra_count <= *rra_count)
+    {
+        while(i < *ra_count)
+        {
+            printf("ko");
+            rotate(stack_a,"ra");
+            i++;
+        }
+    }
+    else
+    {
+        while(i < *rra_count)
+        {
+            reverse_rotate(stack_a, "rra");
+            i++;
+        }
+    }
+}
+
+void re_arrange_stack(t_stack *stack_a, int nextnumber)
 {
     t_list *stack_ra;
     t_list *stack_rra;
@@ -95,9 +113,6 @@ void find_number_of_moves(t_stack *stack_a, int nextnumber, t_stack *stack_b, t_
 
     ra_count = 0;
     rra_count = 0;
-    int i;
-
-    i = 0;
     stack_ra = stack_a->f_element;
     stack_rra = stack_a->f_element;
 
@@ -105,28 +120,14 @@ void find_number_of_moves(t_stack *stack_a, int nextnumber, t_stack *stack_b, t_
     {
         stack_ra = stack_ra->next;
         ra_count++;
+        
     }
     while(stack_ra != NULL)
     {
         stack_ra = stack_ra->next;
         rra_count++;
     }
-    if(ra_count <= rra_count)
-    {
-        while(i < ra_count)
-        {
-           rotate(stack_a,"ra");
-            i++;
-        }
-    }
-    else
-    {
-        while(i < rra_count)
-        {
-           reverse_rotate(stack_a, "rra");
-            i++;
-        }
-    }
+    fix_stack(&ra_count,&rra_count,stack_a);
 }
 
 int find_next_number_in_stack_a(t_stack *stack_a, int number, t_info *info,t_stack *stack_b)
@@ -167,10 +168,3 @@ int find_next_number_in_stack_a(t_stack *stack_a, int number, t_info *info,t_sta
     }
     return(next_number);
 }
-/*
-TODO : STEPS FOR SORTING ALGORITHAM
-*FIND THE NUMBER THAT IS NEAR TO STACK_B_TOP IN STACK_A
-*ROTATE STACK_A UNTILL WE REACH THE NEAREST NUMBER THAT WE FOUND
-*IF THE NUMBE BEING PUSHED IS LESS THAT NEAREST NUMBER ---PUSH
-*IF THE NUMBER BEING PUSHED IS GREATER PUSH AND SWAP
-*/

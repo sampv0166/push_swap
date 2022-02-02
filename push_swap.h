@@ -29,7 +29,6 @@ typedef struct s_stack
 {
 	t_list	*f_element;
 	int 	count;
-	int max;
 }				t_stack;	
 
 typedef struct s_info
@@ -63,6 +62,8 @@ void 	push(t_stack *stack1, t_stack *stack2, char *op);
 void	rotate(t_stack *stack, char *op);	
 void	reverse_rotate(t_stack *stack,  char *op);
 void	print_operation(char *op);
+void rr(t_stack *stack_a, t_stack *stack_b);
+void rrr(t_stack *stack_a, t_stack *stack_b);	
 
 /*
 ** =============================================================================
@@ -95,6 +96,8 @@ int find_median(t_stack *stack,t_info *info ,int size);
 int find_next_number_in_stack_a(t_stack *stack_a, int number, t_info *info, t_stack *stack_b);
 void find_number_of_moves_stack_a(t_stack *stack_a, int num ,t_stack *stack_b, t_info *info);
 void find_number_of_moves_stack_b(t_stack *stack_b,t_info *temp_info,t_list *temp_b);
+void find_minimum_instruction(t_stack *stack_a, t_stack *stack_b, t_info *info, int *num);
+void re_arrange_stack(t_stack *stack_a, int nextnumber);
 /*
 ** =============================================================================
 ** Functions To Remove
