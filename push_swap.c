@@ -291,24 +291,27 @@ void sort_the_rest(t_stack *stack_a, t_stack *stack_b, t_info *info)
     }  
 }
 
-static void create_list2(int argc, char **argv, t_stack *stack)
+static void create_list2(int *argc, char **argv, t_stack *stack)
 {
     int i;
     int j;
-  
     t_list *temp_list;
     t_list *stack_a;
+
+    i = 0;
+    while(argv[i])
+        i++;
+    *argc = i + 1;    
     stack_a = ft_lstnew(ft_atoi(argv[0]));
-   // printf
 
     i = 1;
-    while(i < argc - 1) 
+    while(i < *argc - 1) 
     {
         temp_list = ft_lstnew(ft_atoi(argv[i]));
         ft_lstadd_back(stack_a, temp_list);
         i++;
     }
-    stack->count = argc - 1;
+    stack->count = *argc - 1;
     stack->f_element = stack_a;
 }
 
@@ -318,28 +321,14 @@ int main(int argc, char **argv)
     t_stack stack_b;
     t_info info;
     t_sorted sort;
-    char **split;
-
+    int i;
+ 
     initialize_stacks(&stack_a, &stack_b, argc, &info);
     
     if(argc == 2)
-    {
-        split = ft_split(argv[1],' ') ; 
-        int i ;
-        i = 0;
-     while(split[i])
-    {
-        printf("%s\n",split[i++]);
-        //printf("okk");
-    }
-        argc = i + 1;
-        printf("argc == %d\n", argc);
-        //--------------------------------------------------
-
-    create_list2(argc, split, &stack_a);
-    //---------------------------------------------------
-    sort_to_array(&sort, argc, split); 
-   
+    { 
+        create_list2(&argc, ft_split(argv[1],' '), &stack_a);
+        sort_to_array(&sort, argc, ft_split(argv[1],' '));
     }
     else
     {
@@ -351,7 +340,6 @@ int main(int argc, char **argv)
     stack_a_is_sorted(&stack_a, &info);
     if(info.sorted)
     {
-        printf("okk");
         exit(1);
     }
       
