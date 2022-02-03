@@ -39,6 +39,9 @@ int	ft_atoi(const char *str)
 			exit(0);
 	}
 	if(str[i] != '\0')
+	{
+
 		exit(0);
+	}
 	return (res * s);
 }

@@ -1,5 +1,30 @@
 #include "push_swap.h"
 
+void stack_a_is_sorted(t_stack *stack_a, t_info *info)
+{
+    t_list *temp_list;
+    int f;
+    int j;
+
+    j = 0;
+    f = 0;
+    temp_list = stack_a->f_element;
+    while(temp_list)
+    {
+         if(temp_list->next && temp_list->num  > temp_list->next->num)
+        {
+            f = 1;
+            break ;
+        }
+        temp_list = temp_list->next;  
+        j++;
+    }
+    if(f == 1)
+        info->sorted = 0;   
+    else    
+        info->sorted = 1;
+}
+
 int verify_numbers(int argc, char **argv)
 {
 	int i;
@@ -7,6 +32,7 @@ int verify_numbers(int argc, char **argv)
 
 	i = 1;
 	ret = 1;
+	
 	while(argv[i])
 	{
 		long k;

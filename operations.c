@@ -6,21 +6,11 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 04:19:07 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/03 00:06:15 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/03 04:32:33 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void print_operation(char *op)
-{
-	if(*op)
-	{	
-		char c = '\n';
-		write(1, op, ft_strlen(op));
-		write(1, &c, 1);
-	}
-}
 
 void swap(t_stack *stack, char *op)
 {
@@ -111,16 +101,4 @@ void reverse_rotate(t_stack *stack, char *op)
 	stack->f_element = temp;
 	ft_lstadd_front(&stack->f_element, temp_elem);
 	print_operation(op);
-}
-
-void rr(t_stack *stack_a, t_stack *stack_b)
-{
-	rotate(stack_a,"rr");
-	rotate(stack_b,"");
-}
-
-void rrr(t_stack *stack_a, t_stack *stack_b)
-{	
-	reverse_rotate(stack_a, "rrr");
-	reverse_rotate(stack_b,"");
 }

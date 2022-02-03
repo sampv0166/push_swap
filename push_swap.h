@@ -43,6 +43,15 @@ typedef struct s_info
 	int number_to_push;
 }			   t_info;
 
+
+typedef struct s_vals
+{
+	int min;
+	int current_list_num;
+	int nearest_num;
+	int temp_min;
+
+}			   t_vals;
 /*
 ** =============================================================================
 ** List Functions
@@ -62,19 +71,25 @@ void 	push(t_stack *stack1, t_stack *stack2, char *op);
 void	rotate(t_stack *stack, char *op);	
 void	reverse_rotate(t_stack *stack,  char *op);
 void	print_operation(char *op);
-void rr(t_stack *stack_a, t_stack *stack_b);
-void rrr(t_stack *stack_a, t_stack *stack_b);	
+void 	rr(t_stack *stack_a, t_stack *stack_b);
+void 	rrr(t_stack *stack_a, t_stack *stack_b);	
 
 /*
 ** =============================================================================
 ** Usefull functions
 ** =============================================================================
 */
+
 size_t  ft_strlen(const char *str);
 int     ft_atoi(const char *str);
 int		ft_isdigit(int val);
 char	**ft_split(char const *s, char c);
 void	quickSort(int array[], int low, int high);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+void	*ft_calloc(size_t count, size_t size);
+void	ft_bzero(void *str, size_t n);
+void	*ft_memset(void *ptr, int x, size_t n);
+
 /*
 ** =============================================================================
 ** Validating functions
@@ -82,12 +97,12 @@ void	quickSort(int array[], int low, int high);
 */
 int verify_input(int argc, char **argv, t_sorted *sort);
 
-
 /*
 ** =============================================================================
 ** Functions for sorting
 ** =============================================================================
 */
+
 void sort_2_nums(t_stack *stack_a);
 void sort_3_nums(t_stack *stack_a);
 void sort_5_nums(t_stack *stack_a, t_stack *stack_b, t_sorted *sort, t_info *info);
@@ -98,6 +113,12 @@ void find_number_of_moves_stack_a(t_stack *stack_a, int num ,t_stack *stack_b, t
 void find_number_of_moves_stack_b(t_stack *stack_b,t_info *temp_info,t_list *temp_b);
 void find_minimum_instruction(t_stack *stack_a, t_stack *stack_b, t_info *info, int *num);
 void re_arrange_stack(t_stack *stack_a, int nextnumber);
+void execute_rotation_instructions(t_info *info, int num, t_stack *stack_a, t_stack *stack_b);
+void execute_rev_rotation_instructions(t_info *info, int num, t_stack *stack_a, t_stack *stack_b);
+void sort_stack_a(t_stack *stack_a, t_stack *stack_b, t_info *info);
+void stack_a_is_sorted(t_stack *stack_a, t_info *info);
+void create_stack(int *argc, char **argv, t_stack *stack_a, t_sorted *sort);
+void sort_to_array(t_sorted *sort, int *argc, char **argv);
 /*
 ** =============================================================================
 ** Functions To Remove
@@ -105,9 +126,4 @@ void re_arrange_stack(t_stack *stack_a, int nextnumber);
 */
 void	print_stack(t_list *list);
 void	print_array(int *ar, int argc);
-
-// *IMPORTANT
-// ? SHOUD I DO THIS ?
-// ! WARNING, DONT DO IT
-
 #endif
