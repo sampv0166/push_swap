@@ -35,19 +35,47 @@ void sort_to_array(t_sorted *sort, int *argc, char **argv)
     int i;
     int j;
 
-    sort->sorted = (int *) malloc (sizeof(int) * (*argc));
+    sort->sorted = (int *) malloc (sizeof(int) * (*argc + 1));
     i = 1;
     j = 0;
-    while(i < (*argc) - 1)
+    while(i < (*argc))
     {
         sort->sorted[j] = ft_atoi(argv[i]);
         i++;
         j++;
     }
     argv[i] = NULL;
-    quickSort(sort->sorted, 0, (*argc) - 2);
+    quickSort(sort->sorted, 0, *argc - 2);
     sort->length = (*argc) - 1;
 }
+
+// int sort_to_array(t_stack *stack, t_sorted *sort)
+// {
+//     t_list *temp_list;
+//     int s;
+//     int     numbers[size];
+//     int median;
+
+//     s = 0;
+//     temp_list = stack->f_element;
+//     while(s < size)
+//     {
+//         numbers[s] = temp_list->num;
+//         temp_list = temp_list->next;
+//         s++;
+//     }
+//     quickSort(numbers, 0, s);
+//      if(size % 2 == 0)
+//      {
+//          median = ((numbers[s / 2] + numbers[(s / 2) + 1]) / 2 );
+//      }
+//      else
+//      {
+//          median = numbers[s / 2];
+//    }
+//     return (median);
+// }
+
 
 void fix_stack(int *ra_count, int *rra_count,t_stack *stack_a)
 {
@@ -58,7 +86,6 @@ void fix_stack(int *ra_count, int *rra_count,t_stack *stack_a)
     {
         while(i < *ra_count)
         {
-            printf("ko");
             rotate(stack_a,"ra");
             i++;
         }
@@ -85,7 +112,7 @@ void re_arrange_stack(t_stack *stack_a, int nextnumber)
     stack_ra = stack_a->f_element;
     stack_rra = stack_a->f_element;
 
-    while(stack_ra->num != nextnumber)
+    while(stack_ra && stack_ra->num != nextnumber)
     {
         stack_ra = stack_ra->next;
         ra_count++;

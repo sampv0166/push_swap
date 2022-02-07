@@ -3,10 +3,9 @@
 void initialize_stacks(t_stack *stack_a, t_stack *stack_b,t_info *info)
 {
     stack_b->f_element = NULL;
-    stack_a->f_element = 0;
+    stack_a->f_element = NULL;
     info->sorted = 0;    
     info->instr = __INT_MAX__;
-    info->flag = 0;
     stack_a->count = 0;
     stack_b->count = 0;
 }
@@ -45,7 +44,6 @@ void sort_the_rest(t_stack *stack_a, t_stack *stack_b, t_info *info)
     }  
 }
 
-
 int main(int argc, char **argv)
 {
     t_stack stack_a;
@@ -54,7 +52,7 @@ int main(int argc, char **argv)
     t_info info;
 
     initialize_stacks(&stack_a, &stack_b, &info);
-    create_stack(&argc, argv,&stack_a,&sort);   
+    create_stack(&argc, argv,&stack_a,&sort); 
     stack_a_is_sorted(&stack_a, &info);
     if(!info.sorted)
     {
@@ -70,5 +68,5 @@ int main(int argc, char **argv)
     print_stack(stack_a.f_element);
     printf("stack b\n");
     print_stack(stack_b.f_element);
-    return (0); 
+    return (0);
 }

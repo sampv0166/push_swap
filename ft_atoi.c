@@ -9,7 +9,7 @@ void init(size_t *i, size_t *s, size_t *res)
 
 void skip_sapces_and_signs(const char *str,size_t *i, size_t *s)
 {
-	while (str[(*i)] == ' ' || str[(*i)] == '\n' || str[(*i)] == '\t' || \
+	while (str && str[(*i)] == ' ' || str[(*i)] == '\n' || str[(*i)] == '\t' || \
 		str[(*i)] == '\v' || str[(*i)] == '\f' || str[(*i)] == '\r')
 		(*i)++;
 
@@ -35,12 +35,11 @@ int	ft_atoi(const char *str)
 	{
 		res = (res * 10) + (str[i] - '0');
 		i++;
-		if(res > 2147483647)
+		if((res > 2147483647 && s == 1) || (res > 2147483648 && s == -1))
 			exit(0);
 	}
 	if(str[i] != '\0')
 	{
-
 		exit(0);
 	}
 	return (res * s);
