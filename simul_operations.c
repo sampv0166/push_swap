@@ -28,7 +28,7 @@ void error(t_sorted *sort, char **argv, t_stack *stack_a, t_stack *stack_b)
 
 	i = 0;
 	if(sort->length > 0)
-	free(sort->sorted);
+		free(sort->sorted);
 	while(stack_a->f_element !=  NULL)
 	{
 		temp = stack_a->f_element;

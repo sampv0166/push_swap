@@ -52,29 +52,34 @@ int main(int argc, char **argv)
     t_sorted sort;
     t_info info;
     
-    if(argc == 1)
+
+    
+    if(argc == 1 || !ft_strlen(argv[1]))
         return(0);
+
     sort.split_flag = 0;
     initialize_stacks(&stack_a, &stack_b, &info);
+    
     create_stack(&argc, argv,&stack_a,&sort, &stack_b); 
     stack_a_is_sorted(&stack_a, &info);
+    printf("\n%d\n", argc);
+  
     if(!info.sorted)
     {
-        if(argc == 3)
+        if(sort.length == 2)
             sort_2_nums(&stack_a);
-        else if(argc == 4)
+        else if(sort.length == 3)
             sort_3_nums(&stack_a);
         else
             sort_the_rest(&stack_a, &stack_b, &info);  
     }
     re_arrange_stack(&stack_a, sort.sorted[0]); 
-    // printf("stack a\n");
-    // print_stack(stack_a.f_element);
-    // printf("stack b\n");
-    // print_stack(stack_b.f_element);
+    printf("stack a\n");
+    print_stack(stack_a.f_element);
+    printf("stack b\n");
+    print_stack(stack_b.f_element);
     if(sort.length > 0)
         free(sort.sorted);
-    
     while(stack_a.f_element)
     {
         free(stack_a.f_element);

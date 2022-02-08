@@ -101,7 +101,7 @@ void create_stack(int *argc, char **argv, t_stack *stack_a, t_sorted *sort, t_st
         create_list_from_single_argument(argc, split_args, stack_a, sort, stack_b);
         sort_to_array_2(sort, argc, split_args,stack_a, stack_b);
         if(!verify_input(*argc, split_args, sort,stack_a, stack_b))
-             error(sort, argv, stack_a, stack_b);
+             error(sort, split_args, stack_a, stack_b);
         while (split_args[i])
         {
             if (split_args[i])
@@ -113,6 +113,22 @@ void create_stack(int *argc, char **argv, t_stack *stack_a, t_sorted *sort, t_st
     }
     else
     {
+        int i;
+        int j;
+
+        j = 0;
+        i =1;
+        while(argv[i])
+        {
+            j = 0;
+            while(argv[i][j])
+            {
+                if(!(argv[i][j] >= '0' && argv[i][j] <= '9'))
+                    error(sort, argv, stack_a, stack_b) ;
+                j++;
+            }
+            i++;
+        }
         create_list(argc, argv, stack_a, sort, stack_b);
         sort_to_array(sort, argc, argv, stack_a, stack_b); 
         if(!verify_input(*argc, argv, sort,stack_a, stack_b))

@@ -57,9 +57,15 @@ int check_for_doubles(t_sorted *sort, int argc)
 	ret = 1;
 	i  = 0;
 	j = 0;
+	printf("%d",argc);
 	while(i < argc - 1)
 	{
 		j = i + 1;
+		if(sort->sorted[i] == sort->sorted[j])
+		{
+			ret = 0;
+			return (ret);
+		}
 		while(j < argc - 1)
 		{
 			if(sort->sorted[i] == sort->sorted[j])
