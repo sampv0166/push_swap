@@ -78,7 +78,6 @@ void sort_to_array_2(t_sorted *sort, int *argc, char **argv, t_stack *stack_a, t
         i++;
         j++;
     }
-    // argv[i] = NULL;
     quickSort(sort->sorted, 0, *argc - 1);
     sort->length = (*argc) - 1;
 }

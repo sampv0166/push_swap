@@ -48,46 +48,46 @@ int verify_numbers(int argc, char **argv, t_sorted *sort, t_stack *stack_a, t_st
 	return (ret);
 }
 
-int check_for_doubles(t_sorted *sort, int argc)
-{ 
-	int ret;
-	int i;
-	int j;
+// int check_for_doubles(t_sorted *sort, int argc)
+// { 
+// 	int ret;
+// 	int i;
+// 	int j;
 
-	ret = 1;
-	i  = 0;
-	j = 0;
-	printf("%d",argc);
-	while(i < argc - 1)
-	{
-		j = i + 1;
-		if(sort->sorted[i] == sort->sorted[j])
-		{
-			ret = 0;
-			return (ret);
-		}
-		while(j < argc - 1)
-		{
-			if(sort->sorted[i] == sort->sorted[j])
-			{
-				ret = 0;
-				return (ret);
-			}
-			j++;
-		}
-		i++;
-	}
-	sort->length = argc;
-	return(ret);
-}
+// 	ret = 1;
+// 	i  = 0;
+// 	j = 0;
+// 	printf("%d",argc);
+// 	while(i < argc - 1)
+// 	{
+// 		j = i + 1;
+// 		if(sort->sorted[i] == sort->sorted[j])
+// 		{
+// 			ret = 0;
+// 			return (ret);
+// 		}
+// 		while(j < argc - 1)
+// 		{
+// 			if(sort->sorted[i] == sort->sorted[j])
+// 			{
+// 				ret = 0;
+// 				return (ret);
+// 			}
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	sort->length = argc;
+// 	return(ret);
+// }
 
-int verify_input(int argc, char **argv, t_sorted *sort, t_stack *stack_a, t_stack *stack_b)
-{
-	int ret;
+// int verify_input(int argc, char **argv, t_sorted *sort, t_stack *stack_a, t_stack *stack_b)
+// {
+// 	int ret;
 
-	ret = 1;
-	if (!verify_numbers(argc, argv, sort, stack_a, stack_b) || !check_for_doubles(sort, argc))
-		ret = 0;
-	return (ret);
-}
+// 	ret = 1;
+// 	if (!verify_numbers(argc, argv, sort, stack_a, stack_b) || !check_for_doubles(sort, argc))
+// 		ret = 0;
+// 	return (ret);
+// }
 

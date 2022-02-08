@@ -8,7 +8,6 @@ void initialize_stacks(t_stack *stack_a, t_stack *stack_b,t_info *info)
     info->instr = __INT_MAX__;
     stack_a->count = 0;
     stack_b->count = 0;
-
 }
 
 void push_to_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
@@ -45,46 +44,45 @@ void sort_the_rest(t_stack *stack_a, t_stack *stack_b, t_info *info)
     }  
 }
 
-int main(int argc, char **argv)
-{
-    t_stack stack_a;
-    t_stack stack_b;
-    t_sorted sort;
-    t_info info;
+// int main(int argc, char **argv)
+// {
+//     t_stack stack_a;
+//     t_stack stack_b;
+//     t_info info;
     
 
-    
-    if(argc == 1 || !ft_strlen(argv[1]))
-        return(0);
 
-    sort.split_flag = 0;
-    initialize_stacks(&stack_a, &stack_b, &info);
+//     if(argc == 1 || !ft_strlen(argv[1]))
+//         return(0);
+
+//     sort.split_flag = 0;
+//     initialize_stacks(&stack_a, &stack_b, &info);
     
-    create_stack(&argc, argv,&stack_a,&sort, &stack_b); 
-    stack_a_is_sorted(&stack_a, &info);
-    printf("\n%d\n", argc);
+//     create_stack(&argc, argv,&stack_a,&sort, &stack_b); 
+//     stack_a_is_sorted(&stack_a, &info);
+//     printf("\n%d\n", argc);
   
-    if(!info.sorted)
-    {
-        if(sort.length == 2)
-            sort_2_nums(&stack_a);
-        else if(sort.length == 3)
-            sort_3_nums(&stack_a);
-        else
-            sort_the_rest(&stack_a, &stack_b, &info);  
-    }
-    re_arrange_stack(&stack_a, sort.sorted[0]); 
-    printf("stack a\n");
-    print_stack(stack_a.f_element);
-    printf("stack b\n");
-    print_stack(stack_b.f_element);
-    if(sort.length > 0)
-        free(sort.sorted);
-    while(stack_a.f_element)
-    {
-        free(stack_a.f_element);
-        stack_a.f_element = stack_a.f_element->next;
-    }
-    free(stack_b.f_element);    
-    return (0);
-}
+//     if(!info.sorted)
+//     {
+//         if(sort.length == 2)
+//             sort_2_nums(&stack_a);
+//         else if(sort.length == 3)
+//             sort_3_nums(&stack_a);
+//         else
+//             sort_the_rest(&stack_a, &stack_b, &info);  
+//     }
+//     re_arrange_stack(&stack_a, sort.sorted[0]); 
+//     printf("stack a\n");
+//     print_stack(stack_a.f_element);
+//     printf("stack b\n");
+//     print_stack(stack_b.f_element);
+//     if(sort.length > 0)
+//         free(sort.sorted);
+//     while(stack_a.f_element)
+//     {
+//         free(stack_a.f_element);
+//         stack_a.f_element = stack_a.f_element->next;
+//     }
+//     free(stack_b.f_element);    
+//     return (0);
+// }

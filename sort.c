@@ -23,30 +23,30 @@ void sort_3_nums(t_stack *stack_a)
 }
 
 
-void sort_to_array(t_sorted *sort, int *argc, char **argv, t_stack *stack_a, t_stack *stack_b)
-{
-    int i;
-    int j;
-    int atoi_check;
+// void sort_to_array(t_sorted *sort, int *argc, char **argv, t_stack *stack_a, t_stack *stack_b)
+// {
+//     int i;
+//     int j;
+//     int atoi_check;
 
-    sort->sorted = (int *) malloc (sizeof(int) * (*argc + 1));
-    if(!sort->sorted)
-         error(sort, argv, stack_a, stack_b);
-    i = 1;
-    j = 0;
-    while(i < (*argc))
-    {
-        atoi_check = 0;
-        sort->sorted[j] = ft_atoi(argv[i], &atoi_check);
-        if(atoi_check == 1)
-             error(sort, argv, stack_a, stack_b);
-        i++;
-        j++;
-    }
-    argv[i] = NULL;
-    quickSort(sort->sorted, 0, *argc - 2);
-    sort->length = (*argc) - 1;
-}
+//     sort->sorted = (int *) malloc (sizeof(int) * (*argc + 1));
+//     if(!sort->sorted)
+//          error(sort, argv, stack_a, stack_b);
+//     i = 1;
+//     j = 0;
+//     while(i < (*argc))
+//     {
+//         atoi_check = 0;
+//         sort->sorted[j] = ft_atoi(argv[i], &atoi_check);
+//         if(atoi_check == 1)
+//              error(sort, argv, stack_a, stack_b);
+//         i++;
+//         j++;
+//     }
+//     argv[i] = NULL;
+//     quickSort(sort->sorted, 0, *argc - 2);
+//     sort->length = (*argc) - 1;
+// }
 
 void fix_stack(int *ra_count, int *rra_count,t_stack *stack_a)
 {

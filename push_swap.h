@@ -18,19 +18,27 @@ typedef struct s_list
 	struct s_list	*next;
 }		       t_list;
 
-typedef struct s_sorted
-{
-	int		*sorted;
-	int 	length;
-	int split_flag;
-}
-
-				t_sorted;
 typedef struct s_stack
 {
 	t_list	*f_element;
 	int 	count;
-}				t_stack;	
+}				t_stack;
+
+typedef struct s_sorted
+{
+	long instr;
+	int sorted;
+	int flag;
+	int a_rra_count;
+	int a_ra_count;
+	int b_rrb_count;
+	int b_rb_count;
+	int number_to_push;
+	int	*sorted_arr;
+	int length;
+	int split_flag;
+	char **argmnts;
+}			   t_sorted;
 
 typedef struct s_info
 {
@@ -42,6 +50,11 @@ typedef struct s_info
 	int b_rrb_count;
 	int b_rb_count;
 	int number_to_push;
+	int	*sorted_arr;
+	int length;
+	int split_flag;
+	char **argmnts;
+	int *not_sorted_arr;
 }			   t_info;
 
 
@@ -96,7 +109,7 @@ void	error(t_sorted *sort, char **argv, t_stack *stack_a, t_stack *stack_b);
 ** Validating functions
 ** =============================================================================
 */
-int verify_input(int argc, char **argv, t_sorted *sort, t_stack *stack_a, t_stack *stack_b);
+int verify_input(int argc, t_info *info);
 
 /*
 ** =============================================================================
@@ -119,7 +132,7 @@ void execute_rev_rotation_instructions(t_info *info, int num, t_stack *stack_a, 
 void sort_stack_a(t_stack *stack_a, t_stack *stack_b, t_info *info);
 void stack_a_is_sorted(t_stack *stack_a, t_info *info);
 void create_stack(int *argc, char **argv, t_stack *stack_a, t_sorted *sort, t_stack *stack_b);
-void sort_to_array(t_sorted *sort, int *argc, char **argv, t_stack *stack_a, t_stack *stack_b);
+void sort_to_array(t_info *info, int argc);
 /*
 ** =============================================================================
 ** Functions To Remove
