@@ -22,6 +22,7 @@ typedef struct s_sorted
 {
 	int		*sorted;
 	int 	length;
+	int split_flag;
 }
 
 				t_sorted;
@@ -81,7 +82,7 @@ void 	rrr(t_stack *stack_a, t_stack *stack_b);
 */
 
 size_t  ft_strlen(const char *str);
-int     ft_atoi(const char *str);
+int     ft_atoi(const char *str, int *atoi_check);
 int		ft_isdigit(int val);
 char	**ft_split(char const *s, char c);
 void	quickSort(int array[], int low, int high);
@@ -89,13 +90,13 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 void	*ft_calloc(size_t count, size_t size);
 void	ft_bzero(void *str, size_t n);
 void	*ft_memset(void *ptr, int x, size_t n);
-
+void	error(t_sorted *sort, char **argv, t_stack *stack_a, t_stack *stack_b);
 /*
 ** =============================================================================
 ** Validating functions
 ** =============================================================================
 */
-int verify_input(int argc, char **argv, t_sorted *sort);
+int verify_input(int argc, char **argv, t_sorted *sort, t_stack *stack_a, t_stack *stack_b);
 
 /*
 ** =============================================================================
@@ -117,8 +118,8 @@ void execute_rotation_instructions(t_info *info, int num, t_stack *stack_a, t_st
 void execute_rev_rotation_instructions(t_info *info, int num, t_stack *stack_a, t_stack *stack_b);
 void sort_stack_a(t_stack *stack_a, t_stack *stack_b, t_info *info);
 void stack_a_is_sorted(t_stack *stack_a, t_info *info);
-void create_stack(int *argc, char **argv, t_stack *stack_a, t_sorted *sort);
-void sort_to_array(t_sorted *sort, int *argc, char **argv);
+void create_stack(int *argc, char **argv, t_stack *stack_a, t_sorted *sort, t_stack *stack_b);
+void sort_to_array(t_sorted *sort, int *argc, char **argv, t_stack *stack_a, t_stack *stack_b);
 /*
 ** =============================================================================
 ** Functions To Remove

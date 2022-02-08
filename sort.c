@@ -22,25 +22,24 @@ void sort_3_nums(t_stack *stack_a)
         swap(stack_a, "sa");
 }
 
-// void sort_5_nums(t_stack *stack_a, t_stack *stack_b, t_sorted *sort,t_info *info)
-// {
-//     push(stack_a, stack_b,"pb");
-//     push(stack_a, stack_b,"pb");
-//     sort_3_nums(stack_a);
-//     sort_the_rest(stack_a, stack_b,info) ;   
-// }
 
-void sort_to_array(t_sorted *sort, int *argc, char **argv)
+void sort_to_array(t_sorted *sort, int *argc, char **argv, t_stack *stack_a, t_stack *stack_b)
 {
     int i;
     int j;
+    int atoi_check;
 
     sort->sorted = (int *) malloc (sizeof(int) * (*argc + 1));
+    if(!sort->sorted)
+         error(sort, argv, stack_a, stack_b);
     i = 1;
     j = 0;
     while(i < (*argc))
     {
-        sort->sorted[j] = ft_atoi(argv[i]);
+        atoi_check = 0;
+        sort->sorted[j] = ft_atoi(argv[i], &atoi_check);
+        if(atoi_check == 1)
+             error(sort, argv, stack_a, stack_b);
         i++;
         j++;
     }
@@ -48,34 +47,6 @@ void sort_to_array(t_sorted *sort, int *argc, char **argv)
     quickSort(sort->sorted, 0, *argc - 2);
     sort->length = (*argc) - 1;
 }
-
-// int sort_to_array(t_stack *stack, t_sorted *sort)
-// {
-//     t_list *temp_list;
-//     int s;
-//     int     numbers[size];
-//     int median;
-
-//     s = 0;
-//     temp_list = stack->f_element;
-//     while(s < size)
-//     {
-//         numbers[s] = temp_list->num;
-//         temp_list = temp_list->next;
-//         s++;
-//     }
-//     quickSort(numbers, 0, s);
-//      if(size % 2 == 0)
-//      {
-//          median = ((numbers[s / 2] + numbers[(s / 2) + 1]) / 2 );
-//      }
-//      else
-//      {
-//          median = numbers[s / 2];
-//    }
-//     return (median);
-// }
-
 
 void fix_stack(int *ra_count, int *rra_count,t_stack *stack_a)
 {

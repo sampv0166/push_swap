@@ -11,7 +11,7 @@ void stack_a_is_sorted(t_stack *stack_a, t_info *info)
     temp_list = stack_a->f_element;
     while(temp_list)
     {
-         if(temp_list->next && temp_list->num  > temp_list->next->num)
+        if(temp_list->next && temp_list->num  > temp_list->next->num)
         {
             f = 1;
             break ;
@@ -25,10 +25,11 @@ void stack_a_is_sorted(t_stack *stack_a, t_info *info)
         info->sorted = 1;
 }
 
-int verify_numbers(int argc, char **argv)
+int verify_numbers(int argc, char **argv, t_sorted *sort, t_stack *stack_a, t_stack *stack_b)
 {
 	int i;
 	int ret;
+	int atoi_check;
 
 	i = 1;
 	ret = 1;
@@ -36,7 +37,10 @@ int verify_numbers(int argc, char **argv)
 	while(argv[i])
 	{
 		long k;
-		k = ft_atoi(argv[i]);
+		atoi_check = 0;
+		k = ft_atoi(argv[i], &atoi_check);
+		if(atoi_check == 1)
+			 error(sort, argv, stack_a, stack_b);
 		if(k > 2147483647 || k < -2147483648)
 			return(0);
 		i++;
@@ -45,7 +49,7 @@ int verify_numbers(int argc, char **argv)
 }
 
 int check_for_doubles(t_sorted *sort, int argc)
-{
+{ 
 	int ret;
 	int i;
 	int j;
@@ -53,7 +57,7 @@ int check_for_doubles(t_sorted *sort, int argc)
 	ret = 1;
 	i  = 0;
 	j = 0;
-	while(i < argc)
+	while(i < argc - 1)
 	{
 		j = i + 1;
 		while(j < argc - 1)
@@ -65,19 +69,18 @@ int check_for_doubles(t_sorted *sort, int argc)
 			}
 			j++;
 		}
-		//j = 0;
 		i++;
 	}
 	sort->length = argc;
 	return(ret);
 }
 
-int verify_input(int argc, char **argv, t_sorted *sort)
+int verify_input(int argc, char **argv, t_sorted *sort, t_stack *stack_a, t_stack *stack_b)
 {
 	int ret;
 
 	ret = 1;
-	if (!verify_numbers(argc, argv) || !check_for_doubles(sort, argc))
+	if (!verify_numbers(argc, argv, sort, stack_a, stack_b) || !check_for_doubles(sort, argc))
 		ret = 0;
 	return (ret);
 }

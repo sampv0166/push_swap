@@ -13,7 +13,7 @@ void skip_sapces_and_signs(const char *str,size_t *i, size_t *s)
 		str[(*i)] == '\v' || str[(*i)] == '\f' || str[(*i)] == '\r')
 		(*i)++;
 
-	if (str[(*i)] == '-' || str[(*i)] == '+')
+	if (str && str[(*i)] == '-' || str[(*i)] == '+')
 	{
 		if (str[(*i)] == '-')
 			*s = -1;
@@ -21,7 +21,13 @@ void skip_sapces_and_signs(const char *str,size_t *i, size_t *s)
 	}
 }
 
-int	ft_atoi(const char *str)
+int exit_atoi(int *atoi_chec)
+{
+	*atoi_chec = 1;
+	return (*atoi_chec);
+}
+
+int	ft_atoi(const char *str ,int *atoi_check)
 {
 	size_t	i;
 	size_t	s;
@@ -29,18 +35,18 @@ int	ft_atoi(const char *str)
 
 	init(&i, &s, &res);
 	if(ft_strlen(str) == 1 && (*str == '-' || *str == '+'))
-		exit(0);
+		return(exit_atoi(atoi_check));
 	skip_sapces_and_signs(str, &i, &s);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res = (res * 10) + (str[i] - '0');
 		i++;
 		if((res > 2147483647 && s == 1) || (res > 2147483648 && s == -1))
-			exit(0);
+			return(exit_atoi(atoi_check));
 	}
 	if(str[i] != '\0')
 	{
-		exit(0);
+		return(exit_atoi(atoi_check));
 	}
 	return (res * s);
 }

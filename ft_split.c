@@ -47,7 +47,7 @@ static char	**ft_create_string(char **ptr, char const *s, char c, size_t len)
 		else
 			i++;
 	}
-	ptr[array_index] = NULL;
+	//ptr[array_index] = NULL;
 	return (ptr);
 }
 

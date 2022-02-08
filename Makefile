@@ -15,7 +15,7 @@ NAME = push_swap
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	      $(CC) $(CLAFGS) $(OBJS) -o $(NAME)
+	      $(CC) $(CLAFGS) $(OBJS) -o $(NAME) 
 
 clean :	
 		rm -rf $(OBJS)
