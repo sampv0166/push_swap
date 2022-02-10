@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   helper_functions.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/09 22:22:48 by apila-va          #+#    #+#             */
+/*   Updated: 2022/02/09 23:07:31 by apila-va         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	ft_isdigit(int val)
@@ -9,53 +21,52 @@ int	ft_isdigit(int val)
 	return (0);
 }
 
-size_t ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
-    size_t i;
+	size_t	i;
 
-    i = 0;;
-    while(str && str[i])
-    {
-        i++;
-    }
-    return (i);
+	i = 0;
+	while (str && str[i])
+	{
+		i++;
+	}
+	return (i);
 }
 
-void print_stack(t_list *list)
+void	print_stack(t_list *list)
 {
-	t_list *temp_list;
-	int i;
+	t_list	*temp_list;
+	int		i;
 
 	i = 0;
 	temp_list = list;
-	while(temp_list)
-    {
+	while (temp_list)
+	{
 		i++;
-        printf("%d th element  = %d\n", i, temp_list->num);
-	    temp_list =  temp_list->next;	
+		printf("%d th element  = %d\n", i, temp_list->num);
+		temp_list = temp_list->next;
 	}
 	printf("\n\n");
 }
 
-void print_array(int *ar, int argc)
+void	print_array(int *ar, int argc)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while(i < argc - 1)
-    {
-        printf("%d ", ar[i]);
-        i++;
-    }
-    printf("\n");
+	i = 0;
+	while (i < argc - 1)
+	{
+		printf("%d ", ar[i]);
+		i++;
+	}
+	printf("\n");
 }
 
-void print_operation(char *op)
+void	print_operation(char *op)
 {
-	if(*op)
+	if (*op)
 	{	
-		char c = '\n';
 		write(1, op, ft_strlen(op));
-		write(1, &c, 1);
+		write(1, "\n", 1);
 	}
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/09 22:22:39 by apila-va          #+#    #+#             */
+/*   Updated: 2022/02/10 04:09:56 by apila-va         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static size_t	ft_count(char const *s, char c)
@@ -47,7 +59,7 @@ static char	**ft_create_string(char **ptr, char const *s, char c, size_t len)
 		else
 			i++;
 	}
-	//ptr[array_index] = NULL;
+	ptr[array_index] = NULL;
 	return (ptr);
 }
 
@@ -70,5 +82,7 @@ char	**ft_split(char const *s, char c)
 		return (ptr);
 	}
 	ptr = ft_create_string(ptr, s, c, string_length);
+	int i;
+	i = 0;
 	return (ptr);
 }

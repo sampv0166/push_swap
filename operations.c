@@ -6,50 +6,50 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 04:19:07 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/03 04:32:33 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/09 21:05:52 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void swap(t_stack *stack, char *op)
+void	swap(t_stack *stack, char *op)
 {
-	t_list *first;
-	t_list *second;
-	int tmp_num;
-	
-	if(stack->count <= 1)
+	t_list	*first;
+	t_list	*second;
+	int		tmp_num;
+
+	if (stack->count <= 1)
 		return ;
 	else
 	{
 		first = stack->f_element;
 		second = first->next;
-		tmp_num = first->num;	
+		tmp_num = first->num;
 		first->num = second->num;
-		second->num = tmp_num;		
+		second->num = tmp_num;
 	}
-	print_operation(op);	
+	print_operation(op);
 }
 
-void link_element(t_stack *stack1, t_stack *stack2)
+void	link_element(t_stack *stack1, t_stack *stack2)
 {
 	stack2->f_element = stack1->f_element;
 	stack1->f_element = stack1->f_element->next;
-	stack2->f_element->next = NULL;	
+	stack2->f_element->next = NULL;
 	stack2->count = stack2->count + 1;
-	if(stack1->count != 0)
+	if (stack1->count != 0)
 		stack1->count = stack1->count - 1;
 }
 
-void push(t_stack *stack1, t_stack *stack2, char *op)
+void	push(t_stack *stack1, t_stack *stack2, char *op)
 {
-	t_list *temp_elem;
-	
-	if (stack1->count <= 0) 
+	t_list	*temp_elem;
+
+	if (stack1->count <= 0)
 		return ;
-	if(!stack2->f_element)
+	if (!stack2->f_element)
 	{	
-		link_element(stack1, stack2);	
+		link_element(stack1, stack2);
 		print_operation(op);
 		return ;
 	}
@@ -58,18 +58,18 @@ void push(t_stack *stack1, t_stack *stack2, char *op)
 	temp_elem = stack1->f_element->next;
 	free(stack1->f_element);
 	stack1->f_element = temp_elem;
-	if(stack1->count != 0)
-	 	stack1->count = stack1->count - 1;	
+	if (stack1->count != 0)
+		stack1->count = stack1->count - 1;
 	stack2->count = stack2->count + 1;
 	print_operation(op);
 }
 
-void rotate(t_stack *stack, char *op)
+void	rotate(t_stack *stack, char *op)
 {
-	t_list *temp_elem;
+	t_list	*temp_elem;
 
-	if(stack->count <= 1)
-		return ;	
+	if (stack->count <= 1)
+		return ;
 	temp_elem = stack->f_element;
 	stack->f_element = stack->f_element->next;
 	temp_elem->next = NULL;
@@ -77,17 +77,17 @@ void rotate(t_stack *stack, char *op)
 	print_operation(op);
 }
 
-void reverse_rotate(t_stack *stack, char *op)
+void	reverse_rotate(t_stack *stack, char *op)
 {
-	t_list *temp_elem;
-	t_list *temp;
+	t_list	*temp_elem;
+	t_list	*temp;
 
 	temp = stack->f_element;
-	if(stack->count <= 1)
+	if (stack->count <= 1)
 		return ;
-	if(stack->count > 2)
+	if (stack->count > 2)
 	{
-		while(stack->f_element->next->next != NULL)
+		while (stack->f_element->next->next != NULL)
 		{
 			temp_elem = stack->f_element->next->next;
 			stack->f_element = stack->f_element->next;
