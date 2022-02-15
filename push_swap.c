@@ -36,7 +36,6 @@ void	initialize_stacks(t_stack *stack_a, t_stack *stack_b, t_info *info)
 {
 	stack_b->f_element = NULL;
 	info->sorted = 0;
-	info->instr = __INT_MAX__;
 	stack_a->count = 0;
 	stack_b->count = 0;
 }

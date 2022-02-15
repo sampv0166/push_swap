@@ -56,8 +56,6 @@ int	ft_atoi(const char *str, int *atoi_check)
 			return (exit_atoi(atoi_check));
 	}
 	if (str[i] != '\0')
-	{
 		return (exit_atoi(atoi_check));
-	}
 	return (res * s);
 }

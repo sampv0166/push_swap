@@ -45,11 +45,8 @@ int	find_median(t_stack *stack, t_info *info, int size, t_stack *stack_b)
 		temp_list = temp_list->next;
 		s++;
 	}
-	quicksort(numbers, 0, s);
-	if (size % 2 == 0)
-		median = ((numbers[s / 2] + numbers[(s / 2) + 1]) / 2 );
-	else
-		median = numbers[s / 2];
+	quicksort(numbers, 0, s - 1);
+	median = numbers[s / 2];
 	free(numbers);
 	return (median);
 }

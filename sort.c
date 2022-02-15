@@ -49,7 +49,7 @@ int	sort_to_array(t_info *info, int argc)
 		return (1);
 	i = 0;
 	j = 0;
-	while (i < argc && (info->argmnts + i) && ft_strlen(info->argmnts[i]) > 0)
+	while (i < argc)
 	{
 		atoi_check = 0;
 		info->sorted_arr[j] = ft_atoi(info->argmnts[i], &atoi_check);
