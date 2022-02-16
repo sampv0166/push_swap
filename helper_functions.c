@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:22:48 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/16 04:51:43 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/16 09:10:38 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,34 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-void	print_stack(t_list *list)
-{
-	t_list	*temp_list;
-	int		i;
+// void	print_stack(t_list *list)
+// {
+// 	t_list	*temp_list;
+// 	int		i;
 
-	i = 0;
-	temp_list = list;
-	while (temp_list)
-	{
-		i++;
-		temp_list = temp_list->next;
-	}
-}
+// 	i = 0;
+// 	temp_list = list;
+// 	while (temp_list)
+// 	{
+// 		i++;
+// 		printf("%d th element  = %d\n", i, temp_list->num);
+// 		temp_list = temp_list->next;
+// 	}
+// 	printf("\n\n");
+// }
 
-void	print_array(int *ar, int argc)
-{
-	int	i;
+// void	print_array(int *ar, int argc)
+// {
+// 	int	i;
 
-	i = 0;
-	while (i < argc - 1)
-	{
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < argc - 1)
+// 	{
+// 		printf("%d ", ar[i]);
+// 		i++;
+// 	}
+// 	printf("\n");
+// }
 
 void	print_operation(char *op)
 {

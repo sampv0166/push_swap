@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:23:31 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/16 04:37:29 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/16 09:35:42 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	free_all(t_info *info, t_stack *stack_a, t_stack *stack_b)
 	t_list	*temp;
 
 	i = 0;
-	if (info->length > 0)
+	if (info->allocated > 0)
 	{
 		free(info->sorted_arr);
 		free(info->not_sorted_arr);

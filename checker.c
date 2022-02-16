@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 00:52:12 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/16 04:55:45 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/16 09:45:52 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	initialize_stacks(t_stack *stack_a, t_stack *stack_b, t_info *info)
 	info->instr = __INT_MAX__;
 	stack_a->count = 0;
 	stack_b->count = 0;
+	info->length = 0;
+	info->allocated = 0;
 }
 
 int	ft_strcmp(char *s1, char *s2)
@@ -93,9 +95,9 @@ int	main(int argc, char **argv)
 	{
 		initialize_stacks(&stack_a, &stack_b, &info);
 		info.argmnts = split_and_join(argc, argv);
-		info.length = count_args_after_joining(info.argmnts);
+		if (info.argmnts)
+			info.length = count_args_after_joining(info.argmnts);
 		error_check(&info, &stack_a, &stack_b);
-		create_list(&info, &stack_a, &stack_b);
 		get_operations(&info, &stack_a, &stack_b);
 		stack_a_is_sorted(&stack_a, &info);
 		if (info.sorted)

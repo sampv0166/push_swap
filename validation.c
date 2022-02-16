@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:23:58 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/10 04:38:10 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/16 09:06:50 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,16 @@ void	error_check(t_info *info, t_stack *stack_a, t_stack *stack_b)
 		error(info, stack_a, stack_b);
 	if (!verify_input(info->length, info))
 		error(info, stack_a, stack_b);
+	create_list(info, stack_a, stack_b);
+	stack_a_is_sorted(stack_a, info);
+	if (info->sorted)
+	{
+		free_all(info, stack_a, stack_b);
+		exit(0);
+	}
+	if (info->length == 1)
+	{
+		free_all(info, stack_a, stack_b);
+		exit(0);
+	}		
 }

@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 04:55:07 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/16 04:55:22 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/16 08:08:12 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	execute_oprations(char *str, t_stack *stack_a, t_stack *stack_b)
 	else if (!ft_strcmp(str, "ss"))
 		ss_bonus(stack_a, stack_b);
 	else if (!ft_strcmp(str, "pa"))
-		push(stack_a, stack_b, "");
-	else if (!ft_strcmp(str, "pb"))
 		push(stack_b, stack_a, "");
+	else if (!ft_strcmp(str, "pb"))
+		push(stack_a, stack_b, "");
 	else if (!ft_strcmp(str, "ra"))
 		rotate(stack_a, "");
 	else if (!ft_strcmp(str, "rb"))

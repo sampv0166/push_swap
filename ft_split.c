@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:22:39 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/16 04:23:05 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/16 10:34:03 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 	{
 		free ((char *) s);
+		s = NULL;
 		return (0);
 	}
 	first_array_length = ft_count(s, c);
@@ -85,7 +86,5 @@ char	**ft_split(char const *s, char c)
 		return (ptr);
 	}
 	ptr = ft_create_string(ptr, s, c, string_length);
-	if (s)
-		free ((char *) s);
 	return (ptr);
 }
