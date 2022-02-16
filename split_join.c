@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 13:26:10 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/10 04:08:33 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/16 04:57:26 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*ft_strjoin(char *saved_line, char *buffer)
 	i = 0;
 	j = 0;
 	total_len = ft_strlen(saved_line) + ft_strlen(buffer) + 2;
-	new_string = (char *) malloc(sizeof(char) * (total_len));
+	new_string = (char *) ft_calloc(sizeof(char), (total_len));
 	if (new_string == NULL)
 		return (NULL);
 	while (saved_line[i])
@@ -53,25 +53,15 @@ char	*join_args(char **argv)
 	char	*join;
 	char	*temp;
 
-	join = malloc (sizeof (char) * 1);
-	temp = join;
-	if (!join)
-		return (NULL);
 	i = 1;
-	while (argv[i])
+	join = ft_calloc (sizeof (char), 1);
+	if (join == NULL)
+		return (NULL);
+	while (argv[i] && ft_strlen (argv[i]) > 0)
 	{
 		join = ft_strjoin(join, argv[i]);
 		i++;
 	}
-	// if (join == NULL)
-	// {
-	// 	free(join);
-	// 	return (join);
-	// }
-	// else
-	// {
-	// 	free(join);
-	// }
 	return (join);
 }
 
@@ -79,13 +69,17 @@ char	**split_and_join(int argc, char **argv)
 {
 	char	*joined_args;
 	char	**split_args;
-	int		i;
 
-	i = 0;
+	split_args = NULL;
 	joined_args = join_args(argv);
 	if (!joined_args)
+	{
+		free (joined_args);
 		return (NULL);
-	split_args = ft_split(joined_args, ' ');
-	i = 0;
+	}
+	if (ft_strlen (joined_args) > 0)
+		split_args = ft_split(joined_args, ' ');
+	else
+		free (joined_args);
 	return (split_args);
 }

@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 04:19:07 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/09 21:05:52 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/15 18:58:34 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	push(t_stack *stack1, t_stack *stack2, char *op)
 	temp_elem = ft_lstnew(stack1->f_element->num);
 	ft_lstadd_front(&stack2->f_element, temp_elem);
 	temp_elem = stack1->f_element->next;
-	free(stack1->f_element);
+	if (stack1->f_element)
+		free(stack1->f_element);
 	stack1->f_element = temp_elem;
 	if (stack1->count != 0)
 		stack1->count = stack1->count - 1;

@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:23:31 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/10 11:32:08 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/16 04:37:29 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ void	free_all(t_info *info, t_stack *stack_a, t_stack *stack_b)
 		free(info->sorted_arr);
 		free(info->not_sorted_arr);
 	}
-	while (stack_a->f_element != NULL)
+	while (stack_a->f_element)
 	{
 		temp = stack_a->f_element;
-		free(temp);
 		stack_a->f_element = stack_a->f_element->next;
+		free(temp);
 	}
 	if (stack_b->f_element)
 		free(stack_b->f_element);
-	while (info->argmnts[i])
+	while (info->argmnts && info->argmnts[i])
 	{
 		if (info->argmnts[i])
 			free(info->argmnts[i]);
