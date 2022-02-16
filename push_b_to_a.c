@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:23:06 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/09 22:23:08 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/16 15:03:06 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,10 @@ void	find_minimum_instruction(t_stack *stack_a, t_stack *stack_b, \
 	while (temp_b)
 	{
 		init_temp_info(&temp_info);
-		temp_info.number_to_push = find_next_number_in_stack_a(stack_a, \
-							temp_b->num, info, stack_a);
-		find_number_of_moves_stack_a(stack_a, temp_info.number_to_push \
-									, stack_b, &temp_info);
+		temp_info.number_to_push = \
+		find_next_number_in_stack_a(stack_a, temp_b->num, info, stack_a);
+		find_number_of_moves_stack_a(stack_a, \
+		temp_info.number_to_push, stack_b, &temp_info);
 		find_number_of_moves_stack_b(stack_b, &temp_info, temp_b);
 		temp_info.instr = temp_info.a_ra_count + temp_info.a_rra_count + \
 		temp_info.b_rb_count + temp_info.b_rrb_count;

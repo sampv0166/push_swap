@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:23:12 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/16 10:45:18 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/16 13:01:44 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	initialize_stacks(t_stack *stack_a, t_stack *stack_b, t_info *info)
 	stack_b->f_element = NULL;
 	stack_a->f_element = NULL;
 	info->sorted = 0;
-	info->instr = __INT_MAX__;
 	stack_a->count = 0;
 	stack_b->count = 0;
 	info->length = 0;

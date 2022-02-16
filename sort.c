@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:23:40 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/16 09:20:39 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/16 13:16:01 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	sort_to_array(t_info *info, int argc)
 		return (1);
 	i = 0;
 	j = 0;
-	while (i < argc && (info->argmnts + i) && ft_strlen(info->argmnts[i]) > 0)
+	while (i < argc)
 	{
 		atoi_check = 0;
 		info->sorted_arr[j] = ft_atoi(info->argmnts[i], &atoi_check);

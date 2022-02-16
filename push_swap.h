@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:23:19 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/16 09:20:01 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/16 14:44:38 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_stack
 }				t_stack;
 typedef struct s_info
 {
+	int		nearest_number_in_stack_a;
 	long	instr;
 	int		sorted;
 	int		flag;

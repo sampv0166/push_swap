@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:23:58 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/16 09:06:50 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/16 14:03:10 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,6 @@ int	check_for_doubles(t_info *info, int argc)
 	while (i < argc - 1)
 	{
 		j = i + 1;
-		if (info->sorted_arr[i] == info->sorted_arr[j])
-		{
-			ret = 0;
-			return (ret);
-		}
 		while (j < argc)
 		{
 			if (info->sorted_arr[i] == info->sorted_arr[j])
