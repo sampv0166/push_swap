@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:23:40 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/10 01:15:13 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/16 13:16:01 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	sort_to_array(t_info *info, int argc)
 
 	info->sorted_arr = (int *) malloc(sizeof(int) * (argc));
 	info->not_sorted_arr = (int *) malloc(sizeof(int) * (argc));
+	info->allocated = 1;
+	atoi_check = 0;
 	if (!info->sorted_arr || !info->not_sorted_arr)
 		return (1);
 	i = 0;

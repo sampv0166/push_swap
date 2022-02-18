@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:02:27 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/09 22:36:09 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/16 04:56:32 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	find_min_diff(t_vals *vars, t_list *list, int number)
 }
 
 int	find_next_number_in_stack_a(t_stack *stack_a, \
-			 int number, t_info *info, t_stack *stack_b)
+						int number, t_info *info, t_stack *stack_b)
 {
 	t_list	*list;
 	t_vals	vars;

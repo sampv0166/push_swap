@@ -6,14 +6,13 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:23:19 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/10 03:36:34 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/16 14:44:38 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -35,6 +34,7 @@ typedef struct s_stack
 }				t_stack;
 typedef struct s_info
 {
+	int		nearest_number_in_stack_a;
 	long	instr;
 	int		sorted;
 	int		flag;
@@ -48,6 +48,7 @@ typedef struct s_info
 	int		split_flag;
 	char	**argmnts;
 	int		*not_sorted_arr;
+	int		allocated;
 }			t_info;
 
 typedef struct s_vals
@@ -99,6 +100,9 @@ int		count_args_after_joining(char **arg);
 void	create_list(t_info *info, t_stack *stack, t_stack *stack_b);
 int		count_args_after_joining(char **arg);
 void	initialize_stacks(t_stack *stack_a, t_stack *stack_b, t_info *info);
+int		get_size_of_unsorted_list(t_stack *stack, t_info *info);
+void	execute_oprations(char *str, t_stack *stack_a, t_stack *stack_b);
+int		ft_strcmp(char *s1, char *s2);
 /*
 ** =============================================================================
 ** Validating functions
@@ -122,10 +126,10 @@ void	sort_the_rest(t_stack *stack_a, t_stack *stack_b, t_info *info);
 int		find_median(t_stack *stack, t_info *info, int size, t_stack *stack_b);
 int		find_next_number_in_stack_a(t_stack *stack_a, int number, \
 								t_info *info, t_stack *stack_b);
-void	find_number_of_moves_stack_a(t_stack *stack_a, int num,\
-								  t_stack *stack_b, t_info *info);
+void	find_number_of_moves_stack_a(t_stack *stack_a, int num, \
+								t_stack *stack_b, t_info *info);
 void	find_number_of_moves_stack_b(t_stack *stack_b, t_info *temp_info, \
-									  t_list *temp_b);
+									t_list *temp_b);
 void	find_minimum_instruction(t_stack *stack_a, t_stack *stack_b, \
 								t_info *info, int *num);
 void	re_arrange_stack(t_stack *stack_a, int nextnumber);

@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:23:12 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/10 11:31:57 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/16 13:01:44 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,14 @@ void	create_list(t_info *info, t_stack *stack, t_stack *stack_b)
 
 void	initialize_stacks(t_stack *stack_a, t_stack *stack_b, t_info *info)
 {
+	info->argmnts = NULL;
 	stack_b->f_element = NULL;
+	stack_a->f_element = NULL;
 	info->sorted = 0;
 	stack_a->count = 0;
 	stack_b->count = 0;
+	info->length = 0;
+	info->allocated = 0;
 }
 
 void	push_to_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
@@ -82,22 +86,16 @@ int	main(int argc, char **argv)
 
 	if (argc == 1)
 		exit(0);
-	info.argmnts = split_and_join(argc, argv);
-	info.length = count_args_after_joining(info.argmnts);
 	initialize_stacks(&stack_a, &stack_b, &info);
+	info.argmnts = split_and_join(argc, argv);
+	if (info.argmnts)
+		info.length = count_args_after_joining(info.argmnts);
+	if (info.length == 1 || info.length == 0)
+	{
+		free_all(&info, &stack_a, &stack_b);
+		exit(0);
+	}
 	error_check(&info, &stack_a, &stack_b);
-	create_list(&info, &stack_a, &stack_b);
-	stack_a_is_sorted(&stack_a, &info);
-	if (info.sorted)
-	{
-		free_all(&info, &stack_a, &stack_b);
-		exit(0);
-	}
-	if (info.length == 1)
-	{
-		free_all(&info, &stack_a, &stack_b);
-		exit(0);
-	}
 	if (info.length == 2)
 		sort_2_nums(&stack_a);
 	else if (info.length == 3)
@@ -105,12 +103,6 @@ int	main(int argc, char **argv)
 	else
 		sort_the_rest(&stack_a, &stack_b, &info);
 	re_arrange_stack(&stack_a, info.sorted_arr[0]);
-	printf("stack a\n");
-	print_stack(stack_a.f_element);
-	printf("stack b\n");
-	print_stack(stack_b.f_element);
 	free_all(&info, &stack_a, &stack_b);
 	exit (0);
 }
-// if(info0)
-// 	error(&info, &stack_a, &stack_b);

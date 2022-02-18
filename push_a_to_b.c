@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:22:59 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/09 22:45:56 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/16 14:26:10 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,12 @@ int	find_median(t_stack *stack, t_info *info, int size, t_stack *stack_b)
 	}
 	quicksort(numbers, 0, s - 1);
 	median = numbers[s / 2];
+<<<<<<< HEAD
 	free(numbers);
+=======
+	if (numbers)
+		free(numbers);
+>>>>>>> c33d9c62dcd67a37ce7674e6b66d2dee632ee061
 	return (median);
 }
 
