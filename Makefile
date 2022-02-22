@@ -2,14 +2,14 @@ SRCS = push_swap.c ft_atoi.c list_functions.c \
 		   operations.c validation.c quick_sort.c \
 		sort.c ft_split.c split_helper_functions.c \
 		helper_functions.c push_a_to_b.c push_b_to_a.c \
-		simul_operations.c sort_helper_functions.c split_join.c sort2.c
+		simul_operations.c sort_helper_functions.c split_join.c sort2.c  sort_4_nums.c
 
 BNS_SRCS = checker.c ft_atoi.c list_functions.c \
 		   operations.c validation.c quick_sort.c \
 		sort.c ft_split.c split_helper_functions.c \
 		helper_functions.c push_a_to_b.c push_b_to_a.c \
 		simul_operations.c sort_helper_functions.c split_join.c \
-		get_next_line.c get_next_line_utils.c  bonus_operations.c sort2.c
+		get_next_line.c get_next_line_utils.c  bonus_operations.c sort2.c sort_4_nums.c
 
 OBJS = $(SRCS:.c=.o)
 

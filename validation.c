@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:23:58 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/16 14:03:10 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:27:19 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	stack_a_is_sorted(t_stack *stack_a, t_info *info)
 	else
 		info->sorted = 1;
 }
-
-
 
 static void	iniit(int *ret, int *i, int *j)
 {
@@ -84,6 +82,11 @@ void	error_check(t_info *info, t_stack *stack_a, t_stack *stack_b)
 {
 	if (info->length == 0)
 		error(info, stack_a, stack_b);
+	if (info->length == 1)
+	{
+		free_all(info, stack_a, stack_b);
+		exit(0);
+	}		
 	if (sort_to_array(info, info->length) == 1)
 		error(info, stack_a, stack_b);
 	if (!verify_input(info->length, info))
@@ -94,10 +97,5 @@ void	error_check(t_info *info, t_stack *stack_a, t_stack *stack_b)
 	{
 		free_all(info, stack_a, stack_b);
 		exit(0);
-	}
-	if (info->length == 1)
-	{
-		free_all(info, stack_a, stack_b);
-		exit(0);
-	}		
+	}	
 }

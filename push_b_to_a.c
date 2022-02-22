@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:23:06 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/16 15:03:06 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/22 09:10:00 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	execute_rotation_instructions(t_info *info, int num, t_stack *stack_a, \
 			}
 		}
 	}
-
 	if (info->b_rb_count)
 	{
 		while (info->b_rb_count)

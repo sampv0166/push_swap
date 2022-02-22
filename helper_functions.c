@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:22:48 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/16 09:10:38 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/22 09:07:49 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ size_t	ft_strlen(const char *str)
 	}
 	return (i);
 }
-
-#include <stdio.h>
 
 void	print_stack(t_list *list)
 {

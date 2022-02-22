@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:23:12 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/16 13:01:44 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:45:00 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	push_to_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
 	find_minimum_instruction(stack_a, stack_b, info, &num);
 	if (info->number_to_push > num && info->a_rra_count > 0)
 		info->a_rra_count = info->a_rra_count - 1;
-	else if (info->number_to_push > num)	
-		info->a_ra_count = info->a_ra_count + 1;		
+	else if (info->number_to_push > num)
+		info->a_ra_count = info->a_ra_count + 1;
 	execute_rotation_instructions(info, num, stack_a, stack_b);
 	execute_rev_rotation_instructions(info, num, stack_a, stack_b);
 	push (stack_b, stack_a, "pa");
@@ -94,23 +94,17 @@ int	main(int argc, char **argv)
 	info.argmnts = split_and_join(argc, argv);
 	if (info.argmnts)
 		info.length = count_args_after_joining(info.argmnts);
-	if (info.length == 1 || info.length == 0)
-	{
-		free_all(&info, &stack_a, &stack_b);
-		exit(0);
-	}
 	error_check(&info, &stack_a, &stack_b);
 	if (info.length == 2)
 		sort_2_nums(&stack_a);
 	else if (info.length == 3)
 		sort_3_nums(&stack_a);
-	else if(info.length == 5)
-		sort_5_nums(&stack_a, &stack_b, &info);	
-	else	
+	else if (info.length == 5)
+		sort_5_nums(&stack_a, &stack_b, &info);
+	else if (info.length == 4)
+		sort_4_nums(&stack_a, &stack_b, &info);
+	else
 		sort_the_rest(&stack_a, &stack_b, &info);
 	re_arrange_stack(&stack_a, info.sorted_arr[0]);
-	//print_stack(stack_a.f_element);
-	// print_array(info.sorted_arr,  info.length + 1);
 	free_all(&info, &stack_a, &stack_b);
 }
-

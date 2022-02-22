@@ -6,7 +6,7 @@
 /*   By: apila-va <apila-va@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 22:22:27 by apila-va          #+#    #+#             */
-/*   Updated: 2022/02/09 22:22:31 by apila-va         ###   ########.fr       */
+/*   Updated: 2022/02/22 09:07:33 by apila-va         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	ft_atoi(const char *str, int *atoi_check)
 	if (ft_strlen(str) == 1 && (*str == '-' || *str == '+'))
 		return (exit_atoi(atoi_check));
 	skip_sapces_and_signs(str, &i, &s);
-
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res = (res * 10) + (str[i] - '0');
@@ -58,6 +57,5 @@ int	ft_atoi(const char *str, int *atoi_check)
 	}
 	if (str[i] != '\0')
 		return (exit_atoi(atoi_check));
-
 	return (res * s);
 }
