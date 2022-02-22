@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+#include <stdio.h>
 
 /*
 ** =============================================================================
@@ -53,10 +54,10 @@ typedef struct s_info
 
 typedef struct s_vals
 {
-	int	min;
-	int	current_list_num;
-	int	nearest_num;
-	int	temp_min;
+	ssize_t	min;
+	ssize_t	current_list_num;
+	ssize_t	nearest_num;
+	ssize_t	temp_min;
 
 }				t_vals;
 /*
@@ -120,8 +121,12 @@ char	*free_memmory(char **ptr);
 ** Functions for sorting
 ** =============================================================================
 */
+void	push_to_a(t_stack *stack_a, t_stack *stack_b, t_info *info);
+void 	sort_5_nums(t_stack *stack_a,t_stack *stack_b,t_info *info);
+void 	sort_4_nums(t_stack *stack_a,t_stack *stack_b,t_info *info);
 void	sort_2_nums(t_stack *stack_a);
 void	sort_3_nums(t_stack *stack_a);
+void 	sort_6_nums(t_stack *stack_a,t_stack *stack_b,t_info *info);
 void	sort_the_rest(t_stack *stack_a, t_stack *stack_b, t_info *info);
 int		find_median(t_stack *stack, t_info *info, int size, t_stack *stack_b);
 int		find_next_number_in_stack_a(t_stack *stack_a, int number, \

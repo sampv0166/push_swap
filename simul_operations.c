@@ -56,6 +56,6 @@ void	free_all(t_info *info, t_stack *stack_a, t_stack *stack_b)
 void	error(t_info *info, t_stack *stack_a, t_stack *stack_b)
 {
 	free_all(info, stack_a, stack_b);
-	write (1, "Error\n", 6);
-	exit (0);
+	write (2, "Error\n", 6);
+	exit (1);
 }

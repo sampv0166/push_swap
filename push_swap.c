@@ -50,8 +50,10 @@ void	push_to_a(t_stack *stack_a, t_stack *stack_b, t_info *info)
 
 	num = 0;
 	find_minimum_instruction(stack_a, stack_b, info, &num);
-	if (info->number_to_push > num)
-		info->a_ra_count = info->a_ra_count + 1;
+	if (info->number_to_push > num && info->a_rra_count > 0)
+		info->a_rra_count = info->a_rra_count - 1;
+	else if (info->number_to_push > num)	
+		info->a_ra_count = info->a_ra_count + 1;		
 	execute_rotation_instructions(info, num, stack_a, stack_b);
 	execute_rev_rotation_instructions(info, num, stack_a, stack_b);
 	push (stack_b, stack_a, "pa");
@@ -66,11 +68,13 @@ void	sort_the_rest(t_stack *stack_a, t_stack *stack_b, t_info *info)
 	{
 		stack_a_is_sorted(stack_a, info);
 		if (!info->sorted)
+		{
 			sort_stack_a(stack_a, stack_b, info);
+		}
 		else if (stack_b->f_element != NULL)
 		{
 			while (stack_b->f_element)
-			{
+			{										
 				push_to_a(stack_a, stack_b, info);
 				i = 1;
 			}
@@ -100,9 +104,13 @@ int	main(int argc, char **argv)
 		sort_2_nums(&stack_a);
 	else if (info.length == 3)
 		sort_3_nums(&stack_a);
-	else
+	else if(info.length == 5)
+		sort_5_nums(&stack_a, &stack_b, &info);	
+	else	
 		sort_the_rest(&stack_a, &stack_b, &info);
 	re_arrange_stack(&stack_a, info.sorted_arr[0]);
+	//print_stack(stack_a.f_element);
+	// print_array(info.sorted_arr,  info.length + 1);
 	free_all(&info, &stack_a, &stack_b);
-	exit (0);
 }
+

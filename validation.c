@@ -37,6 +37,8 @@ void	stack_a_is_sorted(t_stack *stack_a, t_info *info)
 		info->sorted = 1;
 }
 
+
+
 static void	iniit(int *ret, int *i, int *j)
 {
 	*ret = 1;

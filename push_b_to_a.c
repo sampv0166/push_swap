@@ -32,6 +32,7 @@ void	execute_rotation_instructions(t_info *info, int num, t_stack *stack_a, \
 			}
 		}
 	}
+
 	if (info->b_rb_count)
 	{
 		while (info->b_rb_count)

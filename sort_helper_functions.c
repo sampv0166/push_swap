@@ -69,10 +69,11 @@ void	find_min_diff(t_vals *vars, t_list *list, int number)
 	while (list != NULL)
 	{
 		vars->current_list_num = list->num;
-		vars->temp_min = vars->current_list_num - number;
+		vars->temp_min =  number - vars->current_list_num ;
+		//printf("\nmin = %ld\n", vars->min);
 		if (vars->temp_min < 0)
 			vars->temp_min = vars->temp_min * -1;
-		if ((vars->temp_min) < vars->min)
+		if (vars->min > vars->temp_min)
 		{
 			vars->min = number - vars->current_list_num;
 			if (vars->min < 0)
@@ -89,10 +90,13 @@ int	find_next_number_in_stack_a(t_stack *stack_a, \
 	t_list	*list;
 	t_vals	vars;
 
+	vars.min = __LONG_LONG_MAX__;
+	vars.temp_min = __LONG_LONG_MAX__;
+
 	list = stack_a->f_element;
-	vars.min = number - list->num;
-	if (vars.min < 0)
-		vars.min = vars.min * -1;
+	// vars.min = number - list->num;
+	// if (vars.min < 0)
+	// 	vars.min = vars.min * -1;
 	vars.nearest_num = list->num;
 	find_min_diff(&vars, list, number);
 	return (vars.nearest_num);

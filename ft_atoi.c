@@ -48,6 +48,7 @@ int	ft_atoi(const char *str, int *atoi_check)
 	if (ft_strlen(str) == 1 && (*str == '-' || *str == '+'))
 		return (exit_atoi(atoi_check));
 	skip_sapces_and_signs(str, &i, &s);
+
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		res = (res * 10) + (str[i] - '0');
@@ -57,5 +58,6 @@ int	ft_atoi(const char *str, int *atoi_check)
 	}
 	if (str[i] != '\0')
 		return (exit_atoi(atoi_check));
+
 	return (res * s);
 }
